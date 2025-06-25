@@ -18,6 +18,7 @@ const DialogCreateCategory = () => {
 
     const handleSubmit = async () => {
         await mutateAsync({ body: state })
+         setState({ title: '' })
         setOpen(false)
     }
 
@@ -25,12 +26,12 @@ const DialogCreateCategory = () => {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild onClick={() => setOpen(true)}>
                 <Button className='space-x-1' startIcon={<Plus />}>
-                    Create
+                    Tambah
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" >
                 <DialogHeader>
-                    <DialogTitle>Kategori Baru</DialogTitle>
+                    <DialogTitle>Buat Kategori Baru</DialogTitle>
                     <DialogDescription>
                         Kategory akan digunakan pada setiap item.
                     </DialogDescription>

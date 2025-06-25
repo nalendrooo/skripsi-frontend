@@ -46,37 +46,74 @@ export const sidebarData: any = {
     },
   ],
   navGroups: [
+
+    {
+      title: 'User',
+      items: [
+        {
+          title: 'User',
+          url: '/user',
+          icon: 'IconUserRound',
+        }
+      ]
+    },
+    {
+      title: 'Barang',
+      items: [
+        {
+          title: 'Barang',
+          url: '/item',
+          icon: 'IconPackages',
+        },
+        {
+          title: 'Barang Restock',
+          url: '/item-restock',
+          icon: 'IconPackagesPlus',
+        },
+        {
+          title: 'Barang Keluar',
+          url: '/item-out',
+          icon: 'IconPackagesMinus',
+        },
+        {
+          title: 'Barang Opname',
+          url: '/item-balance',
+          icon: 'IconPackagesCheck',
+        },
+      ],
+
+    },
     {
       title: 'General',
       items: [
         {
-          title: 'Category',
+          title: 'Kategori',
           url: '/category',
           icon: 'IconLayoutDashboard',
         },
+
         {
-          title: 'Sub-Category',
-          url: '/sub-category',
-          icon: 'IconChecklist',
+          title: 'Unit',
+          url: '/unit',
+          icon: 'IconBoxes',
         },
-        {
-          title: 'Topic',
-          url: '/topic',
-          icon: 'IconPackages',
-        },
-        // {
-        //   title: 'Chats',
-        //   url: '/chats',
-        //   badge: '3',
-        //   icon: IconMessages,
-        // },
-        // {
-        //   title: 'Users',
-        //   url: '/users',
-        //   icon: IconUsers,
-        // },
       ],
     },
+    {
+      title: 'Inspektorat',
+      items: [
+        {
+          title: 'Petugas',
+          url: '/operator',
+          icon: 'IconUserRoundCog',
+        },
+        {
+          title: 'Divisi',
+          url: '/division',
+          icon: 'IconAward',
+        },
+      ]
+    }
     // {
     //   title: 'Pages',
     //   items: [

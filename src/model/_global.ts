@@ -1,15 +1,14 @@
-// export interface IRes
-export interface IBodyCategoryModel {
+export interface IBodyTitleModel {
     title: string
 }
 
-export interface IResCategoryModel {
+export interface IResTitleModel {
     data: {
-        data: ICategory[]
+        data: IDataTitle[]
     }
 }
 
-export interface ICategory {
+export interface IDataTitle {
     id: number
     title: string
     createdAt: string // atau Date jika ingin diparse

@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Sidebar,
   SidebarContent,
@@ -9,8 +11,10 @@ import { sidebarData } from './data/sidebar-data'
 import { TeamSwitcher } from './team-switcher'
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
+import useProfile from '../hooks/useProfile'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const profile = useProfile()
   return (
     <Sidebar collapsible='icon' variant='floating' {...props}>
       <SidebarHeader>
@@ -22,7 +26,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={sidebarData.user} />
+        <NavUser
+          user={{
+            name: profile?.name,
+            email: profile?.email,
+            // avatar: '/avatars/shadcn.jpg',
+          }} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

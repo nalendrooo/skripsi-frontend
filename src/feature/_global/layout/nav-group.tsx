@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 // import { Link, useLocation } from '@tanstack/react-router'
-import { ChevronRight } from 'lucide-react'
+import { Award, Boxes, ChevronRight, LayoutDashboard, ListChecks, Package, PackageCheck, PackageMinus, PackagePlus, UserRound, UserRoundCog, Users } from 'lucide-react'
 import {
   Collapsible,
   CollapsibleContent,
@@ -46,14 +46,14 @@ export function NavGroup({ title, items }: NavGroup) {
           const key = `${item.title}-${item.url}`
 
           if (!item.items)
-            return <SidebarMenuLink key={key} item={item}  />
+            return <SidebarMenuLink key={key} item={item} />
 
           if (state === 'collapsed')
             return (
-              <SidebarMenuCollapsedDropdown key={key} item={item}  />
+              <SidebarMenuCollapsedDropdown key={key} item={item} />
             )
 
-          return <SidebarMenuCollapsible key={key} item={item}  />
+          return <SidebarMenuCollapsible key={key} item={item} />
         })}
       </SidebarMenu>
     </SidebarGroup>
@@ -64,9 +64,23 @@ const NavBadge = ({ children }: { children: ReactNode }) => (
   <Badge className='rounded-full px-1 py-0 text-xs'>{children}</Badge>
 )
 
+const iconMap: any = {
+  IconLayoutDashboard: LayoutDashboard,
+  IconChecklist: ListChecks,
+  IconPackages: Package,
+  IconPackagesPlus: PackagePlus,
+  IconPackagesMinus: PackageMinus,
+  IconPackagesCheck: PackageCheck,
+  IconUserRound: UserRound,
+  IconUserRoundCog: UserRoundCog,
+  IconBoxes: Boxes,
+  IconAward: Award,
+}
+
 const SidebarMenuLink = ({ item, href }: { item: NavLink; href?: string }) => {
   const { setOpenMobile } = useSidebar()
   const pathname = usePathname()
+  const Icon = item.icon ? iconMap[item.icon as any] : null
   return (
     <SidebarMenuItem>
       <SidebarMenuButton
@@ -77,6 +91,7 @@ const SidebarMenuLink = ({ item, href }: { item: NavLink; href?: string }) => {
         {/* <Link to={item.url} onClick={() => setOpenMobile(false)}> */}
         <Link href={item.url}>
           {/* {item.icon && <item.icon />} */}
+          {Icon && <Icon className="w-5 h-5" />} 
           <span>{item.title}</span>
           {item.badge && <NavBadge>{item.badge}</NavBadge>}
         </Link>
@@ -115,7 +130,7 @@ const SidebarMenuCollapsible = ({
               <SidebarMenuSubItem key={subItem.title}>
                 <SidebarMenuSubButton
                   asChild
-                  // isActive={checkIsActive(href, subItem)}
+                // isActive={checkIsActive(href, subItem)}
                 >
                   {/* <Link to={subItem.url} onClick={() => setOpenMobile(false)}>
                     {subItem.icon && <subItem.icon />}
@@ -145,7 +160,7 @@ const SidebarMenuCollapsedDropdown = ({
         <DropdownMenuTrigger asChild>
           <SidebarMenuButton
             tooltip={item.title}
-            // isActive={checkIsActive(href, item)}
+          // isActive={checkIsActive(href, item)}
           >
             {/* {item.icon && <item.icon />} */}
             <span>{item.title}</span>

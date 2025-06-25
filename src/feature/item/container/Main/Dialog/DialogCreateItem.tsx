@@ -1,0 +1,243 @@
+'use client'
+
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import useGetCategory from "@/feature/category/hooks/useGetCategory"
+import useGetUnit from "@/feature/item/hooks/useGetUnit"
+import useCreateUnit from "@/feature/unit/hooks/useCreateUnit"
+import { Plus } from "lucide-react"
+import { useState } from "react"
+import { Controller, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+
+
+import * as yup from "yup"
+import { IBodyCreateItemModel } from "@/model/item"
+import useCreateItem from "@/feature/item/hooks/useCreateItem"
+
+const schema = yup.object({
+    title: yup.string().required("Nama tidak boleh kosong"),
+    code: yup.string().required("Kode tidak boleh kosong"),
+    brand: yup.string(),
+    location: yup.string(),
+    supplier: yup.string(),
+    stock: yup
+        .number()
+        .typeError("Stok harus berupa angka")
+        .required("Stok tidak boleh kosong"),
+    description: yup.string(),
+    unitId: yup
+        .number()
+        .typeError("Satuan harus dipilih")
+        .moreThan(0, "Satuan harus dipilih"),
+    typeId: yup
+        .number()
+        .typeError("Kategori harus dipilih")
+        .moreThan(0, "Kategori harus dipilih"),
+})
+
+
+const defaultValues = {
+    title: '',
+    code: '',
+    brand: '',
+    location: '',
+    supplier: '',
+    stock: 0,
+    description: '',
+    unitId: undefined,
+    typeId: undefined
+}
+
+const DialogCreateItem = () => {
+    const [open, setOpen] = useState(false)
+    const { mutateAsync, isPending } = useCreateItem()
+
+    const { data: units } = useGetUnit()
+    const { data: types } = useGetCategory()
+
+
+    // const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        reset,
+        control,
+        formState: { errors, isSubmitting },
+    } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues
+    })
+    const onSubmit = async (data: IBodyCreateItemModel) => {
+        await mutateAsync({ body: data })
+        reset()
+        setOpen(false)
+    }
+
+
+    // const validate = () => {
+    //     const newErrors: typeof errors = {}
+    //     if (!state.title) newErrors.title = "Nama tidak boleh kosong"
+    //     if (!state.code) newErrors.code = "Kode tidak boleh kosong"
+    //     if (!state.stock || state.stock < 1) newErrors.stock = "Stok harus lebih dari 0"
+    //     if (!state.unitId) newErrors.unitId = "Satuan harus dipilih"
+    //     if (!state.typeId) newErrors.typeId = "Kategori harus dipilih"
+    //     setErrors(newErrors)
+    //     return Object.keys(newErrors).length === 0
+    // }
+
+    // const handleSubmit = async () => {
+    //     if (!validate()) return
+    //     await mutateAsync({ body: state })
+    //     setState(initial)
+    //     setOpen(false)
+    // }
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild onClick={() => setOpen(true)}>
+                <Button className='space-x-1' startIcon={<Plus />}>
+                    Tambah
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[825px]" >
+                <DialogHeader>
+                    <DialogTitle>Buat Item Baru</DialogTitle>
+                    <DialogDescription>
+                        Item akan digunakan sebagai satuan dalam item.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid grid-cols-2 gap-4 py-4">
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="title">Nama</Label>
+                        <Input
+                            id="title"
+                            {...register("title")}
+                            placeholder="Nama item"
+                        />
+                        {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="code">Kode</Label>
+                        <Input
+                            id="code"
+                            {...register("code")}
+                            placeholder="Kode barang"
+                        />
+                        {errors.code && <p className="text-red-500 text-sm">{errors.code.message}</p>}
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="brand">Merek</Label>
+                        <Input
+                            id="brand"
+                            {...register("brand")}
+                            placeholder="Merek"
+                        />
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="location">Lokasi</Label>
+                        <Input
+                            id="location"
+                            {...register("location")}
+                            placeholder="Lokasi penyimpanan"
+                        />
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="supplier">Supplier</Label>
+                        <Input
+                            id="supplier"
+                            {...register("supplier")}
+                            placeholder="Supplier"
+                        />
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="stock">Stok</Label>
+                        <Input
+                            id="stock"
+                            inputMode="numeric"
+                            type="number"
+                            {...register("stock")}
+                            placeholder="Stok"
+                        />
+                        {errors.stock && <p className="text-red-500 text-sm">{errors.stock.message}</p>}
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="unit">Satuan</Label>
+                        <Controller
+                            control={control}
+                            name="unitId"
+                            render={({ field }) => (
+                                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
+                                    <SelectTrigger id="unit" className="w-full">
+                                        <SelectValue placeholder="Pilih satuan" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {units?.data?.map((unit) => (
+                                            <SelectItem key={unit.id} value={unit.id.toString()}>
+                                                {unit.title}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
+
+                        {errors.unitId && <p className="text-red-500 text-sm">{errors.unitId.message}</p>}
+
+                    </div>
+                    <div className="grid items-center gap-2">
+                        <Label htmlFor="type">Kategori</Label>
+                        <Controller
+                            control={control}
+                            name="typeId"
+                            render={({ field }) => (
+                                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
+                                    <SelectTrigger id="typeId" className="w-full">
+                                        <SelectValue placeholder="Pilih satuan" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {types?.data?.map((type) => (
+                                            <SelectItem key={type.id} value={type.id.toString()}>
+                                                {type.title}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            )}
+                        />
+                        {errors.typeId && <p className="text-sm text-red-500">{errors.typeId.message}</p>}
+                    </div>
+                    <div className="col-span-2 grid items-center gap-2">
+                        <Label htmlFor="description">Deskripsi</Label>
+                        <Textarea
+                            id="description"
+                            {...register("description")}
+                            placeholder="Deskripsi item"
+                        />
+                    </div>
+
+                </div>
+
+                <DialogFooter>
+                    <Button
+                        onClick={handleSubmit(onSubmit)}
+                        disabled={isSubmitting}
+                        loading={isSubmitting || isPending}
+                        className="w-full"
+                    >
+                        Simpan
+                    </Button>
+
+                </DialogFooter>
+            </DialogContent>
+        </Dialog >
+    )
+}
+
+export default DialogCreateItem

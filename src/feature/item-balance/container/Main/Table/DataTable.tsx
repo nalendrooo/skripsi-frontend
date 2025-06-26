@@ -23,8 +23,8 @@ const DataTable = () => {
               <TableHead>No</TableHead>
               <TableHead>Petugas</TableHead>
               <TableHead>Nama barang</TableHead>
-              <TableHead>Jumlah</TableHead>
               <TableHead>Stok Awal</TableHead>
+              <TableHead>Opname</TableHead>
               <TableHead>Stok Akhir</TableHead>
               <TableHead>Kode</TableHead>
               <TableHead>Kategori</TableHead>
@@ -42,8 +42,8 @@ const DataTable = () => {
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{item.operator}</TableCell>
                 <TableCell>{item.item.title}</TableCell>
-                <TableCell>{`${item.amount} ${item.item.unit}`}</TableCell>
                 <TableCell>{`${item.initialStock} ${item.item.unit}`}</TableCell>
+                <TableCell>{`${item.amount} ${item.item.unit}`}</TableCell>
                 <TableCell>{`${item.finalStock} ${item.item.unit}`}</TableCell>
                 <TableCell>{item.item.code}</TableCell>
                 <TableCell>{item.item.category || '-'}</TableCell>

@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
     const token = request.cookies.get('token')?.value
 
-    const isPublic = PUBLIC_PATHS.some(path => pathname.startsWith(path))
+    const isPublic = PUBLIC_PATHS.includes(pathname)
 
     if (isPublic) {
         return NextResponse.next()

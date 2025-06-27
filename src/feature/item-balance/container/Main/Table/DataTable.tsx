@@ -44,7 +44,7 @@ const DataTable = () => {
                 <TableCell>{item.item.title}</TableCell>
                 <TableCell>{`${item.initialStock} ${item.item.unit}`}</TableCell>
                 <TableCell>{`${item.finalStock} ${item.item.unit}`}</TableCell>
-                <TableCell>{`${item.amount} ${item.item.unit}`}</TableCell>
+                <TableCell>-{`${item.amount} ${item.item.unit}`}</TableCell>
                 <TableCell>{item.item.code}</TableCell>
                 <TableCell>{item.item.category || '-'}</TableCell>
                 <TableCell>{item.item.location || '-'}</TableCell>

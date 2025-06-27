@@ -96,7 +96,7 @@ const DialogCreateItemBalance = () => {
                             render={({ field }) => (
                                 <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
                                     <SelectTrigger id="itemId" className="w-full">
-                                        <SelectValue placeholder="Pilih satuan" />
+                                        <SelectValue placeholder="Pilih barang" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {item?.data?.map((type) => (

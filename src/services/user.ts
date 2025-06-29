@@ -1,14 +1,14 @@
 import { API_ENDPOINTS } from "@/core/app";
 import { axiosWithBearer } from "@/core/axios";
 import { IBodyTitleModel, IResTitleModel } from "@/model/_global";
-import { IBodyLoginModel, IResUserModel } from "@/model/user";
+import { IBodyCreateUserModel, IBodyLoginModel, IResUserModel } from "@/model/user";
 import axios from "axios";
 
 const userService = {
     create: ({
         body
     }: {
-        body: IBodyTitleModel
+        body: IBodyCreateUserModel
     }) =>
         axiosWithBearer
             .post(API_ENDPOINTS.user, body)

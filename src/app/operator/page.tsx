@@ -1,15 +1,15 @@
 import Header from '@/feature/_global/component/Header/Header'
-import DialogCreateItem from '@/feature/operator/container/Main/Dialog/DialogCreateOperator'
+import DialogCreateOperator from '@/feature/operator/container/Main/Dialog/DialogCreateOperator'
 import DataTable from '@/feature/operator/container/Main/Table/DataTable'
 
 const app = () => {
   return (
     <>
       <Header
-        title='Operator'
-        subtitle='Berikut adalah semua list item'
+        title='Petugas'
+        subtitle='Berikut adalah semua list Petugas'
         rightButton={[
-          <DialogCreateItem />
+          <DialogCreateOperator />
         ]}
       />
       <div

@@ -31,15 +31,15 @@ const DialogCreateUnit = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" >
                 <DialogHeader>
-                    <DialogTitle>Buat Unit Baru</DialogTitle>
+                    <DialogTitle>Tamabh Unit Baru</DialogTitle>
                     <DialogDescription>
-                        Unit akan digunakan sebagai satuan dalam item.
+                        Unit akan digunakan sebagai satuan dalam barang.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid  items-center gap-4">
                         <Label htmlFor="title" className="text-right">
-                            Nama
+                            Nama satuan
                         </Label>
                         <Input
                             id="title"

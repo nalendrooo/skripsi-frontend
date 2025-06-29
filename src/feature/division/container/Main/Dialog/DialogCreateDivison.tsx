@@ -32,9 +32,9 @@ const DialogCreateDivision = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]" >
                 <DialogHeader>
-                    <DialogTitle>Buat Divisi Baru</DialogTitle>
+                    <DialogTitle>Buat Unit Baru</DialogTitle>
                     <DialogDescription>
-                        Divisi akan digunakan pada setiap user.
+                        Unit akan digunakan pada setiap Petugas.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -49,7 +49,7 @@ const DialogCreateDivision = () => {
                                 ...prev,
                                 title: e.target.value
                             }))}
-                            placeholder="Nama divisi"
+                            placeholder="Nama unit"
                             className="col-span-3"
                         />
                     </div>

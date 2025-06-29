@@ -8,8 +8,8 @@ const app = () => {
   return (
     <>
       <Header
-        title='Divisi'
-        subtitle='Berikut adalah semua list divisi'
+        title='Unit'
+        subtitle='Berikut adalah semua list unit'
         rightButton={[
           <DialogCreateDivision />
         ]}

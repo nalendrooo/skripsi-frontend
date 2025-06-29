@@ -33,7 +33,7 @@ const DialogCreateCategory = () => {
                 <DialogHeader>
                     <DialogTitle>Buat Kategori Baru</DialogTitle>
                     <DialogDescription>
-                        Kategory akan digunakan pada setiap item.
+                        Kategori akan digunakan pada setiap barang.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">

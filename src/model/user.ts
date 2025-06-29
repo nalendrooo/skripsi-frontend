@@ -25,6 +25,12 @@ export interface IBodyCreateOperatorModel {
     telephone: string;
     divisionId: number
 }
+export interface IBodyCreateUserModel {
+    code: string;
+    name: string;
+    telephone: string;
+    divisionId: number
+}
 
 interface Division {
   title: string;

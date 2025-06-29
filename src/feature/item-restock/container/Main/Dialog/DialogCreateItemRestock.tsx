@@ -6,22 +6,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import useGetCategory from "@/feature/category/hooks/useGetCategory"
-import useGetUnit from "@/feature/item/hooks/useGetUnit"
-import useCreateUnit from "@/feature/unit/hooks/useCreateUnit"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { Plus } from "lucide-react"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
 
 
-import * as yup from "yup"
-import { IBodyCreateItemModel, IBodyCreateItemRestockModel } from "@/model/item"
-import useCreateItem from "@/feature/item/hooks/useCreateItem"
 import { Checkbox } from "@/components/ui/checkbox"
-import useGetItem from "@/feature/item-restock/hooks/useGetItem"
-import { ComboboxDemo } from "@/feature/_global/component/Combobox/Combobox"
 import useCreateItemRestock from "@/feature/item-restock/hooks/useCreateItemRestock"
+import useGetItem from "@/feature/item-restock/hooks/useGetItem"
+import { IBodyCreateItemRestockModel } from "@/model/item"
+import * as yup from "yup"
+import { toast } from "sonner"
 
 const schema = yup.object({
     news: yup.string(),
@@ -34,13 +30,14 @@ const schema = yup.object({
     itemId: yup
         .number()
         .typeError("Barang harus dipilih")
-        .moreThan(0, "Barang harus dipilih"),
+        .moreThan(0, "Barang harus dipilih")
+        .required("Barang harus dipilih"),
 
 })
 
 
 const defaultValues = {
-    itemId: undefined,
+    itemId: 0,
     amount: 0,
     news: 'FALSE',
     description: '',
@@ -52,25 +49,31 @@ const DialogCreateItemRestock = () => {
 
     const { data: item } = useGetItem()
 
-
-    // const [errors, setErrors] = useState<{ [key: string]: string }>({})
-
     const {
         register,
         handleSubmit,
         setValue,
+        getValues,
         reset,
+        watch,
         control,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, isDirty, isValid, },
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues
     })
     const onSubmit = async (data: IBodyCreateItemRestockModel) => {
+        if (!data.itemId) {
+            toast.error("Barang harus dipilih")
+            return
+        }
         await mutateAsync({ body: data })
         reset()
         setOpen(false)
     }
+
+    const selectedItemId = watch("itemId")
+    const selectedItem = item?.data?.find((itm) => itm.id === selectedItemId)
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -81,9 +84,9 @@ const DialogCreateItemRestock = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[625px]" >
                 <DialogHeader>
-                    <DialogTitle>Restock Barang</DialogTitle>
+                    <DialogTitle>Barang Masuk</DialogTitle>
                     <DialogDescription>
-                        Item akan digunakan sebagai satuan dalam item.
+                        Barang yang dimasukan akan menambah stok barang.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="flex flex-col gap-4 py-4">
@@ -93,9 +96,10 @@ const DialogCreateItemRestock = () => {
                             control={control}
                             name="itemId"
                             render={({ field }) => (
-                                <Select onValueChange={(val) => field.onChange(Number(val))} value={field.value?.toString()}>
+                                <Select onValueChange={(val) => field.onChange(Number(val))}
+                                    value={field.value ? field.value?.toString() : ''}>
                                     <SelectTrigger id="itemId" className="w-full">
-                                        <SelectValue placeholder="Pilih satuan" />
+                                        <SelectValue placeholder="Pilih nama barang" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {item?.data?.map((type) => (
@@ -109,7 +113,13 @@ const DialogCreateItemRestock = () => {
                         />
                         {/* <ComboboxDemo /> */}
                         {errors.itemId && <p className="text-sm text-red-500">{errors.itemId.message}</p>}
+                        {selectedItem && (
+                            <div className="text-xs text-muted-foreground">
+                                Stok saat ini: <span className="font-semibold">{selectedItem.stock} {selectedItem.unit}</span>
+                            </div>
+                        )}
                     </div>
+
                     <div className="grid items-center gap-2">
                         <Label htmlFor="stock">Jumlah</Label>
                         <Input
@@ -166,7 +176,7 @@ const DialogCreateItemRestock = () => {
                 <DialogFooter>
                     <Button
                         onClick={handleSubmit(onSubmit)}
-                        disabled={isSubmitting}
+                        disabled={!isValid || !isDirty || isSubmitting || isPending}
                         loading={isSubmitting || isPending}
                         className="w-full"
                     >

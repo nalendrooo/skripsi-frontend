@@ -25,10 +25,9 @@ const schema = yup.object({
     brand: yup.string(),
     location: yup.string(),
     supplier: yup.string(),
-    stock: yup
+    price: yup
         .number()
-        .typeError("Stok harus berupa angka")
-        .required("Stok tidak boleh kosong"),
+        .typeError("Stok harus berupa angka"),
     description: yup.string(),
     unitId: yup
         .number()
@@ -47,7 +46,7 @@ const defaultValues = {
     brand: '',
     location: '',
     supplier: '',
-    stock: 0,
+    price: 0,
     description: '',
     unitId: undefined,
     typeId: undefined
@@ -60,16 +59,14 @@ const DialogCreateItem = () => {
     const { data: units } = useGetUnit()
     const { data: types } = useGetCategory()
 
-
-    // const [errors, setErrors] = useState<{ [key: string]: string }>({})
-
     const {
         register,
         handleSubmit,
         setValue,
         reset,
         control,
-        formState: { errors, isSubmitting },
+
+        formState: { errors, isSubmitting, isDirty, isValid },
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues
@@ -80,25 +77,6 @@ const DialogCreateItem = () => {
         setOpen(false)
     }
 
-
-    // const validate = () => {
-    //     const newErrors: typeof errors = {}
-    //     if (!state.title) newErrors.title = "Nama tidak boleh kosong"
-    //     if (!state.code) newErrors.code = "Kode tidak boleh kosong"
-    //     if (!state.stock || state.stock < 1) newErrors.stock = "Stok harus lebih dari 0"
-    //     if (!state.unitId) newErrors.unitId = "Satuan harus dipilih"
-    //     if (!state.typeId) newErrors.typeId = "Kategori harus dipilih"
-    //     setErrors(newErrors)
-    //     return Object.keys(newErrors).length === 0
-    // }
-
-    // const handleSubmit = async () => {
-    //     if (!validate()) return
-    //     await mutateAsync({ body: state })
-    //     setState(initial)
-    //     setOpen(false)
-    // }
-
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild onClick={() => setOpen(true)}>
@@ -108,18 +86,18 @@ const DialogCreateItem = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[825px]" >
                 <DialogHeader>
-                    <DialogTitle>Buat Item Baru</DialogTitle>
+                    <DialogTitle>Buat Barang Baru</DialogTitle>
                     <DialogDescription>
-                        Item akan digunakan sebagai satuan dalam item.
+                        Barang akan digunakan sebagai satuan dalam barang.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid grid-cols-2 gap-4 py-4">
                     <div className="grid items-center gap-2">
-                        <Label htmlFor="title">Nama</Label>
+                        <Label htmlFor="title">Nama Barang</Label>
                         <Input
                             id="title"
                             {...register("title")}
-                            placeholder="Nama item"
+                            placeholder="Nama barang"
                         />
                         {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
                     </div>
@@ -157,16 +135,20 @@ const DialogCreateItem = () => {
                         />
                     </div>
                     <div className="grid items-center gap-2">
-                        <Label htmlFor="stock">Stok</Label>
-                        <Input
-                            id="stock"
-                            inputMode="numeric"
-                            type="number"
-                            {...register("stock")}
-                            placeholder="Stok"
-                        />
-                        {errors.stock && <p className="text-red-500 text-sm">{errors.stock.message}</p>}
+                        <Label htmlFor="price">Harga Satuan</Label>
+                        <div className="flex items-center border border-input rounded-md">
+                            <span className="text-sm text-muted-foreground mr-2 ps-3 ">Rp.</span>
+                            <Input
+                                id="price"
+                                type="number"
+                                {...register("price")}
+                                placeholder="Harga satuan"
+                                className="border-0 rounded p-0 h-auto focus-visible:ring-0 py-1.5 focus-visible:ring-offset-0 pl-2"
+                            />
+                        </div>
+                        {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
                     </div>
+
                     <div className="grid items-center gap-2">
                         <Label htmlFor="unit">Satuan</Label>
                         <Controller
@@ -227,7 +209,7 @@ const DialogCreateItem = () => {
                 <DialogFooter>
                     <Button
                         onClick={handleSubmit(onSubmit)}
-                        disabled={isSubmitting}
+                        disabled={!isDirty || !isValid || isSubmitting}
                         loading={isSubmitting || isPending}
                         className="w-full"
                     >

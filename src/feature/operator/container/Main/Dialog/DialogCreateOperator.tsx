@@ -64,23 +64,23 @@ const DialogCreateOperator = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="space-x-1" startIcon={<Plus />}>
-          Tambah Operator
+          Tambah Petugas
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Tambah Operator</DialogTitle>
-          <DialogDescription>Masukkan data operator yang akan dibuat.</DialogDescription>
+          <DialogTitle>Tambah Petugas</DialogTitle>
+          <DialogDescription>Masukan data Petugas yang akan dibuat</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col grid-cols-2 gap-4 py-4">
           <div className="grid items-center gap-2">
             <Label htmlFor="name">Nama</Label>
-            <Input id="name" {...register('name')} placeholder="Nama operator" />
+            <Input id="name" {...register('name')} placeholder="Nama petugas" />
             {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
           </div>
           <div className="grid items-center gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" {...register('email')} placeholder="Email operator" />
+            <Input id="email" {...register('email')} placeholder="Email petugas" />
             {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
           </div>
           <div className="grid items-center gap-2">

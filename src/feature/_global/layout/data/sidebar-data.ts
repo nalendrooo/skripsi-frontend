@@ -51,7 +51,7 @@ export const sidebarData: any = {
       title: 'User',
       items: [
         {
-          title: 'User',
+          title: 'Pengambil',
           url: '/user',
           icon: 'IconUserRound',
         }
@@ -66,7 +66,7 @@ export const sidebarData: any = {
           icon: 'IconPackages',
         },
         {
-          title: 'Barang Restock',
+          title: 'Barang Masuk',
           url: '/item-restock',
           icon: 'IconPackagesPlus',
         },
@@ -76,7 +76,7 @@ export const sidebarData: any = {
           icon: 'IconPackagesMinus',
         },
         {
-          title: 'Barang Opname',
+          title: 'Stok Opname',
           url: '/item-balance',
           icon: 'IconPackagesCheck',
         },
@@ -93,14 +93,14 @@ export const sidebarData: any = {
         },
 
         {
-          title: 'Unit',
+          title: 'Satuan',
           url: '/unit',
           icon: 'IconBoxes',
         },
       ],
     },
     {
-      title: 'Inspektorat',
+      title: 'Users',
       items: [
         {
           title: 'Petugas',
@@ -108,7 +108,7 @@ export const sidebarData: any = {
           icon: 'IconUserRoundCog',
         },
         {
-          title: 'Divisi',
+          title: 'Unit',
           url: '/division',
           icon: 'IconAward',
         },

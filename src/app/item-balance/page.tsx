@@ -7,8 +7,8 @@ const app = () => {
   return (
     <>
       <Header
-        title='Barang Opname'
-        subtitle='Berikut adalah semua list item'
+        title='Stok Opname'
+        subtitle=' Berikut adalah semua list stok opname'
         rightButton={[
           <DialogCreateItemBalance />
         ]}

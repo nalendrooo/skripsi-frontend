@@ -17,7 +17,7 @@ export function TableToolbar() {
         <div className='flex items-center justify-between'>
             <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
                 <Input
-                    placeholder='Cari nama kategori ...'
+                    placeholder='Cari nama barang ...'
                     //   value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
                     //   onChange={(event) =>
                     //     table.getColumn('title')?.setFilterValue(event.target.value)

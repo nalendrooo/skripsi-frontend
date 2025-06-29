@@ -1,35 +1,35 @@
-import { IBodyCreateItemModel } from '@/model/item';
-import itemService from '@/services/item';
+import { IBodyCreateUserModel } from '@/model/user';
+import userService from '@/services/user';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { toast } from 'sonner';
-import useGetItem from './useGetItemOut';
+import useGetUser from './useGetUser';
 
 interface IMutationVariables {
-    body: IBodyCreateItemModel
+    body: IBodyCreateUserModel
 }
 
-const useCreateItem = () => {
-    const { refetch } = useGetItem()
+const useCreateUser = () => {
+    const { refetch } = useGetUser()
     const mutation = useMutation({
-        mutationKey: ['create-item'],
+        mutationKey: ['create-user'],
         mutationFn: ({ body }: IMutationVariables) => {
-            return itemService
+            return userService
                 .create({
                     body,
                 })
                 .then((response: AxiosResponse) => response.data);
         },
         onSuccess: () => {
-            toast.success('Item berhasil ditambahkan')
+            toast.success('Pengambil berhasil ditambahkan')
             refetch()
         },
         onError: () => {
-            toast.error('Item gagal ditambahkan')
+            toast.error('Pengambil gagal ditambahkan')
         },
     });
 
     return mutation;
 }
 
-export default useCreateItem
+export default useCreateUser

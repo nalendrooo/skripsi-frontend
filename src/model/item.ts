@@ -26,7 +26,7 @@ export interface IBodyCreateItemModel {
     brand?: string;
     location?: string;
     supplier?: string;
-    stock: number;
+    stock?: number;
     description?: string;
     unitId?: number;
     typeId?: number;
@@ -38,10 +38,10 @@ export interface IBodyCreateItemRestockModel {
     itemId?: number;
 }
 export interface IBodyCreateItemBalanceModel {
-    news?: string;
+    news?: string; // ⬅️ bukan optional lagi
     amount: number;
     description?: string;
-    itemId?: number;
+    itemId: number;
 }
 
 

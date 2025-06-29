@@ -8,7 +8,7 @@ const app = () => {
     <>
       <Header
         title='Barang Masuk'
-        subtitle='Berikut adalah semua list user'
+        subtitle='Berikut adalah list barang masuk'
         rightButton={[
           <DialogCreateItemRestock />
         ]}

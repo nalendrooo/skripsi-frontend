@@ -7,8 +7,8 @@ const app = () => {
   return (
     <>
       <Header
-        title='Category'
-        subtitle='Berikut adalah semua list category'
+        title='Kategori Barang'
+        subtitle='Berikut adalah semua list kategori barang'
         rightButton={[
           <DialogCreateCategory />
         ]}

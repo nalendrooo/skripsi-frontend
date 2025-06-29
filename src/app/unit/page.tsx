@@ -6,8 +6,8 @@ const app = () => {
   return (
     <>
       <Header
-        title='Divisi'
-        subtitle='Berikut adalah semua list divisi'
+        title='Satuan'
+        subtitle='Berikut adalah semua list satuan'
         rightButton={[
           <DialogCreateUnit />
         ]}

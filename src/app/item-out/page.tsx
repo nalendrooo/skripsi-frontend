@@ -7,7 +7,7 @@ const app = () => {
     <>
       <Header
         title='Barang Keluar'
-        subtitle='Berikut adalah semua list user'
+        subtitle='Berikut adalah semua data barang keluar'
         // rightButton={[
         //   <DialogCreateUnit />
         // ]}

@@ -1,14 +1,12 @@
-import { IBodyCreateItemModel, IBodyCreateItemRestockModel } from '@/model/item';
-import itemService from '@/services/item';
+import { IBodyCreateItemBalanceModel } from '@/model/item';
+import itemBalanceService from '@/services/item-balance';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { toast } from 'sonner';
-import itemRestockService from '@/services/item-restock';
 import useGetItemBalance from './useGetItemBalance';
-import itemBalanceService from '@/services/item-balance';
 
 interface IMutationVariables {
-    body: IBodyCreateItemRestockModel
+    body: IBodyCreateItemBalanceModel
 }
 
 const useCreateItemBalance = () => {

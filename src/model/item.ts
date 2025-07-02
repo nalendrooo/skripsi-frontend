@@ -72,6 +72,7 @@ export interface IDataItemIn {
 }
 
 export interface IDataItemBalance {
+    id: number
     operator: string
     amount: number
     createdAt: string // ISO date string, bisa dikonversi ke Date jika perlu

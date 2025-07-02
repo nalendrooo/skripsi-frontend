@@ -10,6 +10,7 @@ import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
 import { cn } from '@/lib/utils'
 import { BadgeCheck, X } from 'lucide-react'
+import DialogDeleteItemBalance from '../Dialog/DialogDeleteItemBalance'
 
 const DataTable = () => {
   const { data } = useGetItemBalance()
@@ -40,6 +41,7 @@ const DataTable = () => {
                 <TableHead>Berita Acara</TableHead>
                 <TableHead>Deskripsi</TableHead>
                 <TableHead>Dibuat</TableHead>
+                <TableHead>Aksi</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -72,6 +74,9 @@ const DataTable = () => {
                   </TableCell>
                   <TableCell>{item.description || '-'}</TableCell>
                   <TableCell>{formatIndonesianDateTime(item.createdAt)}</TableCell>
+                  <TableCell>
+                    <DialogDeleteItemBalance item={item} />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

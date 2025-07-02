@@ -1,7 +1,6 @@
 import { API_ENDPOINTS } from "@/core/app";
 import { axiosWithBearer } from "@/core/axios";
-import { IBodyTitleModel, IResTitleModel } from "@/model/_global";
-import { IBodyCreateItemBalanceModel, IBodyCreateItemModel, IResItemBalanceModel, IResItemModel, IResItemOutModel } from "@/model/item";
+import { IBodyCreateItemBalanceModel, IResItemBalanceModel } from "@/model/item";
 
 const itemBalanceService = {
     create: ({
@@ -11,6 +10,14 @@ const itemBalanceService = {
     }) =>
         axiosWithBearer
             .post(API_ENDPOINTS.itemBalance, body)
+            .then((res) => res.data),
+    delete: ({
+        id
+    }: {
+        id: number
+    }) =>
+        axiosWithBearer
+            .delete(API_ENDPOINTS.itemBalance + `/${id}`)
             .then((res) => res.data),
     get: (params?: Record<string, any>) =>
         axiosWithBearer

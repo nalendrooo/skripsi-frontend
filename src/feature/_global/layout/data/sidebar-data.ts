@@ -24,13 +24,13 @@ import { AudioWaveform, Command, GalleryVerticalEnd } from 'lucide-react'
 
 export const sidebarData: any = {
   user: {
-    name: 'satnaing',
+    name: 'Dinas Perhubungan Kabupaten Banyumas',
     email: 'satnaingdev@gmail.com',
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: 'Shadcn Admin',
+      name: 'Shaddcn Admsin',
       logo: 'Command',
       plan: 'Vite + ShadcnUI',
     },

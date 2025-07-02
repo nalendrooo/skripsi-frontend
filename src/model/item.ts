@@ -1,4 +1,4 @@
-interface IDataItem {
+export interface IDataItem {
     id: number;
     title: string;
     code: string;
@@ -12,6 +12,8 @@ interface IDataItem {
     createdAt: string; // atau Date jika kamu ingin otomatis parsing ke objek Date
     updatedAt: string; // atau Date jika kamu ingin otomatis parsing ke objek Date
     unit: string;
+    unitId: number;
+    typeId: number;
     category: string;
 }
 

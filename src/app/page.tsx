@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import useLogin from '@/feature/auth/hooks/useLogin'
+import Image from 'next/image'
 
 // Yup schema
 const schema = yup.object({
@@ -24,7 +25,7 @@ export default function AuthenticationPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting, isDirty, isValid }
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -33,7 +34,7 @@ export default function AuthenticationPage() {
     }
   })
 
-  const { mutateAsync } = useLogin()
+  const { mutateAsync, isPending } = useLogin()
 
   const onSubmit = async (data: FormData) => {
     await mutateAsync({ body: data })
@@ -54,29 +55,21 @@ export default function AuthenticationPage() {
 
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
         <div className="absolute inset-0 bg-zinc-900" />
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mr-2 h-6 w-6"
-          >
-            <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-          </svg>
-          Logo
+        <div className="relative gap-4 z-20 flex items-center text-xl font-bold">
+
+          <Image src='/LOGO_KEMENTERIAN_PERHUBUNGAN_REPUBLIK_INDONESIA.png' alt='Logo Kementerian Perhubungan Republik Indonesia' width={50} height={50} className="relative z-20 " />
+          DISHUB BANYUMAS
         </div>
+
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
-            <p className="text-lg">
-              &ldquo;This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.&rdquo;
+            <p className="text-4xl font-bold">
+              Sistem Pengelolaan Gudang Dinas Perhubungan
             </p>
-            <footer className="text-sm">Sofia Davis</footer>
+            <p className="text-sm">
+              Sistem ini merupakan platform internal resmi Dinas Perhubungan yang digunakan untuk mengelola data barang masuk, barang keluar, dan inventaris logistik gudang secara terpusat, efisien, dan transparan.
+            </p>
+            {/* <footer className="text-sm">Sofia Davis</footer> */}
           </blockquote>
         </div>
       </div>
@@ -84,11 +77,11 @@ export default function AuthenticationPage() {
       <div className="flex h-full items-center p-4 lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <h1 className="text-2xl font-bold tracking-tight">
               Masuk sebagai Petugas
             </h1>
             <p className="text-sm text-muted-foreground">
-              Masukkan email dan password dari inspektorat
+              Silakan login menggunakan akun yang telah diberikan untuk mengakses fitur pengelolaan.
             </p>
           </div>
 
@@ -125,12 +118,15 @@ export default function AuthenticationPage() {
 
             <Button
               type="submit"
+              loading={isSubmitting || isPending}
               className="ml-auto mt-6 w-full"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !isDirty || !isValid || isPending}
             >
-              {isSubmitting ? 'Memproses...' : 'Masuk'}
+              Masuk
             </Button>
           </form>
+          <p className="text-sm text-muted-foreground">
+            Harap menjaga kerahasiaan akun Anda. Segala aktivitas dalam sistem ini tercatat dan diawasi untuk kepentingan keamanan dan audit.            </p>
         </div>
       </div>
     </div>

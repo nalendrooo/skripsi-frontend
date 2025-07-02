@@ -12,6 +12,16 @@ const itemService = {
         axiosWithBearer
             .post(API_ENDPOINTS.item, body)
             .then((res) => res.data),
+    update: ({
+        body,
+        id
+    }: {
+        body: IBodyCreateItemModel
+        id: number
+    }) =>
+        axiosWithBearer
+            .put(API_ENDPOINTS.item + `/${id}`, body)
+            .then((res) => res.data),
     get: (params?: Record<string, any>) =>
         axiosWithBearer
             .get<IResItemModel>(API_ENDPOINTS.item, {

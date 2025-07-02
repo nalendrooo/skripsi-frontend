@@ -1,7 +1,8 @@
 'use client'
 
+'use client'
+
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -9,9 +10,15 @@ import useGetDivision from '@/feature/operator/hooks/useGetDivision'
 import { IBodyCreateUserModel } from '@/model/user'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, set, useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import useCreateUser from '../../hooks/useCreateUser'
+
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { IDataUser } from "@/model/user"
+import { SquarePen } from "lucide-react"
+import { useEffect } from "react"
+import useUpdateUser from '@/feature/user/hooks/useUpdateUser'
+
 
 // Skema validasi
 const schema = yup.object({
@@ -21,13 +28,14 @@ const schema = yup.object({
     divisionId: yup.number().typeError('Divisi wajib dipilih').required('Divisi wajib dipilih'),
 })
 
-const FormCreateUser = ({
-    onClick,
+const DialogUpdateUser = ({
+    item
 }: {
-    onClick: () => void
+    item: IDataUser
 }) => {
+    const [open, setOpen] = useState(false)
     const { data: divisions } = useGetDivision()
-    const { mutateAsync, isPending } = useCreateUser()
+    const { mutateAsync, isPending } = useUpdateUser()
 
     const {
         register,
@@ -35,7 +43,8 @@ const FormCreateUser = ({
         control,
         reset,
         getValues,
-        formState: { errors, isSubmitting },
+        setValue,
+        formState: { errors, isSubmitting, isValid, isDirty },
     } = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -47,21 +56,38 @@ const FormCreateUser = ({
     })
 
     const onSubmit = async (data: IBodyCreateUserModel) => {
-        await mutateAsync({ body: data })
+        await mutateAsync({ body: data, id: item.id })
         reset()
-        onClick()
+        setOpen(false)
     }
+
+    useEffect(() => {
+        if (item) {
+            setValue('name', item.name)
+            setValue('code', item.code)
+            setValue('telephone', item.telephone)
+            setValue('divisionId', item.divisionId)
+        }
+    }, [item])
+
     return (
-        <>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Pengambil Baru</CardTitle>
-                    <CardDescription>
-                        Buat data pengambil baru.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-6">
-                    <div className="flex flex-col grid-cols-2 gap-4 py-4">
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild onClick={() => setOpen(true)}>
+                <Button
+                    startIcon={<SquarePen />}
+                    className='h-8 px-2 lg:px-3 text-xs lg:text-sm bg-green-500 hover:bg-green-600'
+                >
+                    Ubah
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]" >
+                <DialogHeader>
+                    <DialogTitle>Ubah nama satuan barang</DialogTitle>
+                    <DialogDescription>
+                        Unit akan digunakan sebagai satuan dalam barang.
+                    </DialogDescription>
+                </DialogHeader>
+                  <div className="flex flex-col grid-cols-2 gap-4 py-4">
                         <div className="grid items-center gap-2">
                             <Label htmlFor="name">Nama</Label>
                             <Input id="name" {...register('name')} placeholder="Nama pengambil" />
@@ -103,22 +129,19 @@ const FormCreateUser = ({
                             {errors.divisionId && <p className="text-sm text-red-500">{errors.divisionId.message}</p>}
                         </div>
                     </div>
-                </CardContent>
-
-                <CardFooter>
+                <DialogFooter>
                     <Button
-                        onClick={handleSubmit(onSubmit)}
-                        disabled={isSubmitting || isPending}
-                        loading={isSubmitting || isPending}
+                        loading={isPending}
                         className="w-full"
+                        disabled={!isDirty || !isValid || isSubmitting}
+                        onClick={handleSubmit(onSubmit)}
                     >
                         Simpan
                     </Button>
-                </CardFooter>
-            </Card>
-
-        </>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }
 
-export default FormCreateUser
+export default DialogUpdateUser

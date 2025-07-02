@@ -7,6 +7,7 @@ import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
 import useGetItem from '@/feature/item/hooks/useGetItem'
 import useGetOperator from '@/feature/operator/hooks/useGetOperator'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
+import DialogUpdateOperator from '../Dialog/DialogUpdateOperator'
 
 const DataTable = () => {
   const { data } = useGetOperator()
@@ -14,7 +15,7 @@ const DataTable = () => {
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
-      <TableToolbar />
+      {/* <TableToolbar /> */}
       <div className='rounded-md border'>
         {data?.data?.length === 0 ? (
           <EmptyState />
@@ -32,6 +33,7 @@ const DataTable = () => {
                 <TableHead>Status</TableHead>
                 <TableHead>Dibuat</TableHead>
                 <TableHead>Terakhir Diubah</TableHead>
+                <TableHead>Aksi</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -46,6 +48,9 @@ const DataTable = () => {
                   <TableCell><Switch checked={user.isActive} /></TableCell>
                   <TableCell>{formatIndonesianDateTime(user.createdAt)}</TableCell>
                   <TableCell>{formatIndonesianDateTime(user.updatedAt)}</TableCell>
+                  <TableCell>
+                    <DialogUpdateOperator item={user} />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -6,6 +6,7 @@ import AutoPagination from '@/feature/_global/component/Pagination/AutoPaginatio
 import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
 import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
+import DialogUpdateItem from '../Dialog/DialogUpdateItem'
 
 const DataTable = () => {
   const { data } = useGetItem()
@@ -34,6 +35,7 @@ const DataTable = () => {
                 <TableHead>Status</TableHead>
                 <TableHead>Dibuat</TableHead>
                 <TableHead>Terakhir diubah</TableHead>
+                <TableHead>Aksi</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -53,6 +55,9 @@ const DataTable = () => {
                   <TableCell><Switch checked={item.isActive} /></TableCell>
                   <TableCell>{formatIndonesianDateTime(item.createdAt)}</TableCell>
                   <TableCell>{formatIndonesianDateTime(item.updatedAt)}</TableCell>
+                  <TableCell>
+                    <DialogUpdateItem item={item}/>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

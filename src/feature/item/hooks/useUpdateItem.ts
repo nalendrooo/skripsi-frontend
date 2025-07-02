@@ -7,29 +7,31 @@ import useGetItem from './useGetItem';
 
 interface IMutationVariables {
     body: IBodyCreateItemModel
+    id: number
 }
 
-const useCreateItem = () => {
+const useUpdateItem = () => {
     const { refetch } = useGetItem()
     const mutation = useMutation({
-        mutationKey: ['create-item'],
-        mutationFn: ({ body }: IMutationVariables) => {
+        mutationKey: ['update-item'],
+        mutationFn: ({ body, id }: IMutationVariables) => {
             return itemService
-                .create({
+                .update({
+                    id,
                     body,
                 })
                 .then((response: AxiosResponse) => response.data);
         },
         onSuccess: () => {
-            toast.success('Barang berhasil ditambahkan')
+            toast.success('Barang berhasil diupdate')
             refetch()
         },
         onError: () => {
-            toast.error('Barang gagal ditambahkan')
+            toast.error('Barang gagal diupdate')
         },
     });
 
     return mutation;
 }
 
-export default useCreateItem
+export default useUpdateItem

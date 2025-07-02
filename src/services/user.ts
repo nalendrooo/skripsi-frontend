@@ -13,6 +13,16 @@ const userService = {
         axiosWithBearer
             .post(API_ENDPOINTS.user, body)
             .then((res) => res.data),
+    update: ({
+        body,
+        id
+    }: {
+        body: IBodyCreateUserModel
+        id: number
+    }) =>
+        axiosWithBearer
+            .put(API_ENDPOINTS.user + `/${id}`, body)
+            .then((res) => res.data),
     login: ({
         body
     }: {

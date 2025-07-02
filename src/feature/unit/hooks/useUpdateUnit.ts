@@ -1,35 +1,37 @@
 import { IBodyTitleModel } from '@/model/_global';
-import divisionService from '@/services/division';
+import unitService from '@/services/unit';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import useGetDivision from './useGetDivision';
+import useGetUnit from './useGetUnit';
 import { toast } from 'sonner';
 
 interface IMutationVariables {
     body: IBodyTitleModel
+    id: number
 }
 
-const useCreateDivision = () => {
-    const { refetch } = useGetDivision()
+const useUpdateUnit = () => {
+    const { refetch } = useGetUnit()
     const mutation = useMutation({
-        mutationKey: ['create-division'],
-        mutationFn: ({ body }: IMutationVariables) => {
-            return divisionService
-                .create({
+        mutationKey: ['update-unit'],
+        mutationFn: ({ body, id }: IMutationVariables) => {
+            return unitService
+                .update({
                     body,
+                    id
                 })
                 .then((response: AxiosResponse) => response.data);
         },
         onSuccess: () => {
-            toast.success('Unit berhasil ditambahkan')
+            toast.success('Unit berhasil diubah')
             refetch()
         },
         onError: () => {
-            toast.error('Unit gagal ditambahkan')
+            toast.error('Unit gagal diubah')
         },
     });
 
     return mutation;
 }
 
-export default useCreateDivision
+export default useUpdateUnit

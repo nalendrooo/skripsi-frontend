@@ -7,6 +7,7 @@ interface IDataItem {
     supplier: string;
     stock: number;
     price: number;
+    isActive: boolean;
     description: string;
     createdAt: string; // atau Date jika kamu ingin otomatis parsing ke objek Date
     updatedAt: string; // atau Date jika kamu ingin otomatis parsing ke objek Date
@@ -67,6 +68,7 @@ export interface IDataItemIn {
     description: string
     news: boolean
     item: IItemDetail
+    code: string
 }
 
 export interface IDataItemBalance {
@@ -78,15 +80,18 @@ export interface IDataItemBalance {
     description: string | null
     item: IItemDetail
     news: boolean
+    code: string
 
 }
 export interface IDataItemOut {
+    id: number
     operator: string
     amount: number
     createdAt: string // ISO date string
     item: IItemDetail
     news: boolean
     user: IUserInfo
+    code: string
 
 }
 

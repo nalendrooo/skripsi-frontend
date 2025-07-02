@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react'
 // import { Link, useLocation } from '@tanstack/react-router'
-import { Award, Boxes, ChevronRight, LayoutDashboard, ListChecks, Package, PackageCheck, PackageMinus, PackagePlus, UserRound, UserRoundCog, Users } from 'lucide-react'
+import { Award, Boxes, ChevronRight, Gauge, LayoutDashboard, ListChecks, Package, PackageCheck, PackageMinus, PackagePlus, UserRound, UserRoundCog, Users } from 'lucide-react'
 import {
   Collapsible,
   CollapsibleContent,
@@ -75,6 +75,7 @@ const iconMap: any = {
   IconUserRoundCog: UserRoundCog,
   IconBoxes: Boxes,
   IconAward: Award,
+  IconGauge: Gauge,
 }
 
 const SidebarMenuLink = ({ item, href }: { item: NavLink; href?: string }) => {

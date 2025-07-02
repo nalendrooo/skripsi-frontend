@@ -1,5 +1,6 @@
 'use client'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
+import { Switch } from '@/components/ui/switch'
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import AutoPagination from '@/feature/_global/component/Pagination/AutoPagination'
 import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
@@ -27,6 +28,7 @@ const DataTable = () => {
               <TableHead>Code</TableHead>
               <TableHead>Division</TableHead>
               <TableHead>Telephone</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Total Pengambilan</TableHead>
             </TableRow>
           </TableHeader>
@@ -38,6 +40,7 @@ const DataTable = () => {
                 <TableCell>{item.code || '-'}</TableCell>
                 <TableCell>{item.divisionTitle}</TableCell>
                 <TableCell>{item.telephone}</TableCell>
+                <TableCell><Switch  checked={item.isActive}/></TableCell>
                 <TableCell className="text-center">{item._count}</TableCell>
               </TableRow>
             ))}

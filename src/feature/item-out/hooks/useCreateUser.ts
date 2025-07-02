@@ -24,8 +24,8 @@ const useCreateUser = () => {
             toast.success('Pengambil berhasil ditambahkan')
             refetch()
         },
-        onError: () => {
-            toast.error('Pengambil gagal ditambahkan')
+        onError: (err: any) => {
+            toast.error(err?.response?.data?.error?.message || 'Pengambil gagal ditambahkan')
         },
     });
 

@@ -49,6 +49,7 @@ const defaultValues = {
 }
 
 const DialogCreateItemOut = () => {
+    const [tab, setTab] = useState("old")
     const [open, setOpen] = useState(false)
     const { mutateAsync, isPending } = useCreateItemOut()
 
@@ -204,7 +205,7 @@ const DialogCreateItemOut = () => {
             </div >
             <div className="w-1/2">
                 <div className="flex w-full  flex-col gap-6">
-                    <Tabs defaultValue="old">
+                    <Tabs defaultValue="old" value={tab} onValueChange={setTab}>
                         <TabsList>
                             <TabsTrigger value="old">Data Pengambil</TabsTrigger>
                             <TabsTrigger value="new">Pengambil Baru</TabsTrigger>
@@ -245,7 +246,7 @@ const DialogCreateItemOut = () => {
                         </TabsContent>
 
                         <TabsContent value="new">
-                            <FormCreateUser />
+                            <FormCreateUser onClick={() => setTab("old")} />
                         </TabsContent>
                     </Tabs>
                 </div>

@@ -48,6 +48,16 @@ export const sidebarData: any = {
   navGroups: [
 
     {
+      title: 'Dashboard',
+      items: [
+        {
+          title: 'Dashboard',
+          url: '/dashboard',
+          icon: 'IconGauge',
+        }
+      ]
+    },
+    {
       title: 'User',
       items: [
         {
@@ -61,7 +71,7 @@ export const sidebarData: any = {
       title: 'Barang',
       items: [
         {
-          title: 'Barang',
+          title: 'Stok Barang',
           url: '/item',
           icon: 'IconPackages',
         },
@@ -87,13 +97,13 @@ export const sidebarData: any = {
       title: 'General',
       items: [
         {
-          title: 'Kategori',
+          title: 'Kategori Barang',
           url: '/category',
           icon: 'IconLayoutDashboard',
         },
 
         {
-          title: 'Satuan',
+          title: 'Satuan Barang',
           url: '/unit',
           icon: 'IconBoxes',
         },
@@ -108,7 +118,7 @@ export const sidebarData: any = {
           icon: 'IconUserRoundCog',
         },
         {
-          title: 'Unit',
+          title: 'Divisi',
           url: '/division',
           icon: 'IconAward',
         },

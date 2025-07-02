@@ -13,4 +13,7 @@ export interface IDataTitle {
     title: string
     createdAt: string // atau Date jika ingin diparse
     updatedAt: string // atau Date jika ingin diparse
+    _count?: {
+        items?: number
+    }
 }

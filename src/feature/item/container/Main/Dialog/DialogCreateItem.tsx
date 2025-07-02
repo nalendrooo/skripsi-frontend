@@ -18,6 +18,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { IBodyCreateItemModel } from "@/model/item"
 import useCreateItem from "@/feature/item/hooks/useCreateItem"
+import { currencyFormatter } from "@/feature/_global/helper/formatter"
 
 const schema = yup.object({
     title: yup.string().required("Nama tidak boleh kosong"),
@@ -55,6 +56,19 @@ const defaultValues = {
 const DialogCreateItem = () => {
     const [open, setOpen] = useState(false)
     const { mutateAsync, isPending } = useCreateItem()
+
+    const [displayPrice, setDisplayPrice] = useState("");
+
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value.replace(/[^\d]/g, ""); // remove all except numbers
+        const numericValue = parseInt(rawValue || "0");
+
+        // Update formatted display
+        setDisplayPrice(currencyFormatter.format(numericValue));
+
+        // Simpan angka asli ke form (tanpa format)
+        setValue("price", numericValue, { shouldValidate: true });
+    };
 
     const { data: units } = useGetUnit()
     const { data: types } = useGetCategory()
@@ -136,16 +150,14 @@ const DialogCreateItem = () => {
                     </div>
                     <div className="grid items-center gap-2">
                         <Label htmlFor="price">Harga Satuan</Label>
-                        <div className="flex items-center border border-input rounded-md">
-                            <span className="text-sm text-muted-foreground mr-2 ps-3 ">Rp.</span>
-                            <Input
-                                id="price"
-                                type="number"
-                                {...register("price")}
-                                placeholder="Harga satuan"
-                                className="border-0 rounded p-0 h-auto focus-visible:ring-0 py-1.5 focus-visible:ring-offset-0 pl-2"
-                            />
-                        </div>
+                        <Input
+                            id="price"
+                            inputMode="numeric"
+                            value={displayPrice}
+                            onChange={handlePriceChange}
+                            placeholder="Harga satuan"
+                            className="border-0 rounded p-0 h-auto focus-visible:ring-0 py-1.5 focus-visible:ring-offset-0 pl-2"
+                        />
                         {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
                     </div>
 

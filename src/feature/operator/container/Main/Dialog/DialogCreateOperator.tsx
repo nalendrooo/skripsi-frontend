@@ -28,6 +28,7 @@ const schema = yup.object({
   email: yup.string().email('Email tidak valid').required('Email wajib diisi'),
   password: yup.string().min(6, 'Minimal 6 karakter').required('Password wajib diisi'),
   telephone: yup.string().required('Telepon wajib diisi'),
+  adminRole: yup.string().required('Role wajib dipilih'),
   divisionId: yup.number().typeError('Divisi wajib dipilih').required('Divisi wajib dipilih'),
 })
 
@@ -73,6 +74,34 @@ const DialogCreateOperator = () => {
           <DialogDescription>Masukan data Petugas yang akan dibuat</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col grid-cols-2 gap-4 py-4">
+          <div className="grid items-center gap-2 col-span-2">
+            <Label htmlFor="adminRole">Role</Label>
+            <Controller
+              control={control}
+              name="adminRole"
+              render={({ field }) => (
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                >
+                  <SelectTrigger id="adminRole" className="w-full">
+                    <SelectValue placeholder="Pilih role petugas" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {['INSPECTOR', 'OPERATOR'].map((role) => (
+                      <SelectItem key={role} value={role}>
+                        {role} {/* atau ubah jadi title-case */}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.adminRole && (
+              <p className="text-sm text-red-500">{errors.adminRole.message}</p>
+            )}
+          </div>
+
           <div className="grid items-center gap-2">
             <Label htmlFor="name">Nama</Label>
             <Input id="name" {...register('name')} placeholder="Nama petugas" />

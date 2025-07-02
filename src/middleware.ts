@@ -20,15 +20,17 @@ export async function middleware(request: NextRequest) {
     }
 
     // Verifikasi token JWT
-    try {
-        await jwtVerify(token, new TextEncoder().encode(process.env.ACCESS_TOKEN))
-        return NextResponse.next()
-    } catch (err) {
-        // token invalid atau expired
-        const response = NextResponse.redirect(new URL('/', request.url))
-        response.cookies.delete('token')
-        return response
-    }
+    // try {
+    //     await jwtVerify(token, new TextEncoder().encode(process.env.ACCESS_TOKEN))
+    //     return NextResponse.next()
+    // } catch (err) {
+    //     // token invalid atau expired
+    //     const response = NextResponse.redirect(new URL('/', request.url))
+    //     response.cookies.delete('token')
+    //     return response
+    // }
+
+    return NextResponse.next()
 }
 
 export const config = {

@@ -12,6 +12,14 @@ const itemOutService = {
         axiosWithBearer
             .post(API_ENDPOINTS.itemOut, body)
             .then((res) => res.data),
+    delete: ({
+        id
+    }: {
+        id: number
+    }) =>
+        axiosWithBearer
+            .delete(API_ENDPOINTS.itemOut + `/${id}`)
+            .then((res) => res.data),
     get: (params?: Record<string, any>) =>
         axiosWithBearer
             .get<IResItemOutModel>(API_ENDPOINTS.itemOut, {

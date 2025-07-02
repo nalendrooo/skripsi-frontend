@@ -4,6 +4,7 @@ interface IDataUser {
     divisionTitle: string;
     code: string;
     telephone: string;
+    isActive: boolean;
     _count: number
 }
 
@@ -44,6 +45,7 @@ export interface IDataOperator {
   adminRole: 'OPERATOR' | 'ADMIN' | 'USER'; // Tambahkan opsi lain jika ada
   updatedAt: string; // Bisa juga pakai Date jika ingin parsing sebagai objek Date
   createdAt: string;
+  isActive: boolean;
   division: Division;
 }
 

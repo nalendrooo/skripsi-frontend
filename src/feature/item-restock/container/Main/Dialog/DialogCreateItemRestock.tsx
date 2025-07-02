@@ -62,6 +62,19 @@ const DialogCreateItemRestock = () => {
         resolver: yupResolver(schema),
         defaultValues
     })
+
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let raw = e.target.value;
+
+        // Bersihkan leading zero (kecuali jika hanya '0')
+        if (raw.length > 1 && raw.startsWith("0")) {
+            raw = raw.replace(/^0+/, "");
+        }
+
+        // Simpan nilai ke react-hook-form
+        setValue("amount", Number(raw), { shouldValidate: true });
+    };
+
     const onSubmit = async (data: IBodyCreateItemRestockModel) => {
         if (!data.itemId) {
             toast.error("Barang harus dipilih")
@@ -125,9 +138,10 @@ const DialogCreateItemRestock = () => {
                         <Input
                             id="amount"
                             inputMode="numeric"
-                            type="number"
-                            {...register("amount")}
+                            type="text"
                             placeholder="Stok"
+                            onChange={handleAmountChange}
+                            defaultValue={getValues("amount")}
                         />
                         {errors.amount && <p className="text-red-500 text-sm">{errors.amount.message}</p>}
                     </div>

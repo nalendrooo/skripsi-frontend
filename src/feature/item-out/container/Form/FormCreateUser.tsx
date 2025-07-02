@@ -21,7 +21,11 @@ const schema = yup.object({
     divisionId: yup.number().typeError('Divisi wajib dipilih').required('Divisi wajib dipilih'),
 })
 
-const FormCreateUser = () => {
+const FormCreateUser = ({
+    onClick,
+}: {
+    onClick: () => void
+}) => {
     const [open, setOpen] = useState(false)
     const { data: divisions } = useGetDivision()
     const { mutateAsync, isPending } = useCreateUser()
@@ -46,7 +50,7 @@ const FormCreateUser = () => {
     const onSubmit = async (data: IBodyCreateUserModel) => {
         await mutateAsync({ body: data })
         reset()
-        setOpen(false)
+        onClick()
     }
     return (
         <>
@@ -61,7 +65,7 @@ const FormCreateUser = () => {
                     <div className="flex flex-col grid-cols-2 gap-4 py-4">
                         <div className="grid items-center gap-2">
                             <Label htmlFor="name">Nama</Label>
-                            <Input id="name" {...register('name')} placeholder="Nama petugas" />
+                            <Input id="name" {...register('name')} placeholder="Nama pengambil" />
                             {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
                         </div>
                         <div className="grid items-center gap-2">

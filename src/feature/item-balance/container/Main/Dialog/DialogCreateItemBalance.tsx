@@ -122,7 +122,7 @@ const DialogCreateItemBalance = () => {
                         )}
                     </div>
                     <div className="grid items-center gap-2">
-                        <Label htmlFor="stock">Jumlah</Label>
+                        <Label htmlFor="stock">Jumlah stok fisik</Label>
                         <Input
                             id="amount"
                             inputMode="numeric"

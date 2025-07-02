@@ -22,7 +22,7 @@ const useLogin = () => {
         },
         onSuccess: (r) => {
             localStorage.setItem('token', r?.token)
-            router.push('/category')
+            router.push('/dashboard')
             toast.success('Anda berhasil login')
         },
         onError: (e: any) => {

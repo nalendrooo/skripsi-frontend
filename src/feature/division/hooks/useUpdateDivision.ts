@@ -7,29 +7,31 @@ import { toast } from 'sonner';
 
 interface IMutationVariables {
     body: IBodyTitleModel
+    id: number
 }
 
-const useCreateDivision = () => {
+const useUpdateDivision = () => {
     const { refetch } = useGetDivision()
     const mutation = useMutation({
         mutationKey: ['create-division'],
-        mutationFn: ({ body }: IMutationVariables) => {
+        mutationFn: ({ body, id }: IMutationVariables) => {
             return divisionService
-                .create({
+                .update({
                     body,
+                    id
                 })
                 .then((response: AxiosResponse) => response.data);
         },
         onSuccess: () => {
-            toast.success('Unit berhasil ditambahkan')
+            toast.success('Unit berhasil diubah')
             refetch()
         },
         onError: () => {
-            toast.error('Unit gagal ditambahkan')
+            toast.error('Unit gagal diubah')
         },
     });
 
     return mutation;
 }
 
-export default useCreateDivision
+export default useUpdateDivision

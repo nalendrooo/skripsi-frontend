@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/sidebar'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import useLogout from '@/feature/auth/hooks/useLogout'
 
 export function NavUser({
   user,
@@ -37,12 +38,12 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+  const { mutateAsync: logout } = useLogout()
 
   const navigate = useRouter()
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem('token')
-    navigate.push('/')
-    toast.success('Anda berhasil logout')
+    await logout()
   }
 
   return (
@@ -83,14 +84,14 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */}
             {/* <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Sparkles />
                 Upgrade to Pro
               </DropdownMenuItem>
             </DropdownMenuGroup> */}
-            <DropdownMenuSeparator />
+            {/* <DropdownMenuSeparator /> */}
             {/* <DropdownMenuGroup>
               <DropdownMenuItem asChild>
                 <Link to='/settings/account'>
@@ -114,6 +115,8 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleLogout}
+              variant='destructive'
+              className='cursor-pointer'
             >
               <LogOut />
               Log out

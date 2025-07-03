@@ -2,7 +2,6 @@
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import AutoPagination from '@/feature/_global/component/Pagination/AutoPagination'
-import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
 import useGetItemOut from '@/feature/item-out/hooks/useGetItemOut'
 import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
@@ -11,6 +10,7 @@ import { BadgeCheck, X } from 'lucide-react'
 import DialogCreateItemOut from '../Dialog/DialogCreateItemOut'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
 import DialogDeleteItemOut from '../Dialog/DialogDeleteItemOut'
+import { TableToolbar } from '@/feature/item-out/component/Toolbar/TableToolbar'
 
 const DataTable = () => {
   const { data } = useGetItemOut()
@@ -18,7 +18,7 @@ const DataTable = () => {
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
       <DialogCreateItemOut />
-      {/* <TableToolbar /> */}
+      <TableToolbar />
       <div className='rounded-md border'>
         {data?.data.length === 0 ? (
           <EmptyState />

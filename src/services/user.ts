@@ -34,6 +34,13 @@ const userService = {
             })
 
             .then((res) => res.data),
+    logout: () =>
+        axios
+            .delete(API_ENDPOINTS.login + '/logout', {
+                withCredentials: true
+            })
+
+            .then((res) => res.data),
     get: (params?: Record<string, any>) =>
         axiosWithBearer
             .get<IResUserModel>(API_ENDPOINTS.user, {

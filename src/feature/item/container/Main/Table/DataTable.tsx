@@ -3,10 +3,10 @@ import { Switch } from '@/components/ui/switch'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
 import AutoPagination from '@/feature/_global/component/Pagination/AutoPagination'
-import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
 import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
 import DialogUpdateItem from '../Dialog/DialogUpdateItem'
+import { TableToolbar } from '@/feature/item/component/Toolbar/TableToolbar'
 
 const DataTable = () => {
   const { data } = useGetItem()

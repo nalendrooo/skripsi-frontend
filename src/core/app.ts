@@ -13,4 +13,5 @@ export const API_ENDPOINTS = {
   itemOut: `${BASE_URL}/item-out`,
   operator: `${BASE_URL}/operator`,
   login: `${ENV_BACKEND_URL}/api/operator`,
+  downloadExcel: `${ENV_BACKEND_URL}/api/download-excel`,
 };

@@ -1,8 +1,6 @@
-// middleware.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { jwtVerify } from 'jose' // menggunakan jose untuk verifikasi JWT
 
-const PUBLIC_PATHS = ['/', '/login', '/static', '/favicon.ico']
+const PUBLIC_PATHS = ['/'] // contoh: halaman login
 
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl
@@ -10,25 +8,20 @@ export async function middleware(request: NextRequest) {
 
     const isPublic = PUBLIC_PATHS.includes(pathname)
 
+    // ⛔️ Jika user sudah login dan mengakses halaman login (/), redirect ke dashboard
+    if (pathname === '/' && token) {
+        return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+
+    // ✅ Jika halaman publik (seperti /) dan user belum login, izinkan
     if (isPublic) {
         return NextResponse.next()
     }
 
-    // jika butuh proteksi khusus, redirect bila belum login
+    // ⛔️ Jika halaman private dan user belum login, redirect ke login (/)
     if (!token) {
         return NextResponse.redirect(new URL('/', request.url))
     }
-
-    // Verifikasi token JWT
-    // try {
-    //     await jwtVerify(token, new TextEncoder().encode(process.env.ACCESS_TOKEN))
-    //     return NextResponse.next()
-    // } catch (err) {
-    //     // token invalid atau expired
-    //     const response = NextResponse.redirect(new URL('/', request.url))
-    //     response.cookies.delete('token')
-    //     return response
-    // }
 
     return NextResponse.next()
 }

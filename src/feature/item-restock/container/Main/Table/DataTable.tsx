@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ComboboxDemo } from '@/feature/_global/component/Combobox/Combobox'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
 import AutoPagination from '@/feature/_global/component/Pagination/AutoPagination'
-import { TableToolbar } from '@/feature/_global/component/Toolbar/TableToolbar'
+import { TableToolbar } from '@/feature/item-restock/component/Toolbar/TableToolbar'
 import useGetItemRestock from '@/feature/item-restock/hooks/useGetItemRestock'
 import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
@@ -16,7 +16,7 @@ const DataTable = () => {
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
-      {/* <TableToolbar /> */}
+      <TableToolbar />
       <div className='rounded-md border'>
         {data?.data?.length === 0 ? (
           <EmptyState />

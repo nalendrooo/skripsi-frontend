@@ -14,6 +14,26 @@ export interface IResUserModel {
         data: IDataUser[];
     }
 }
+export interface IResTopUserModel {
+    data: {
+        item: number;
+        user: UserItemOutSummary[];
+    }
+}
+
+interface UserItemOutSummary {
+  name: string;
+  telephone: string;
+  division: {
+    title: string;
+  };
+  _count: {
+    itemOut: number;
+  };
+}
+
+
+
 
 export interface IBodyLoginModel {
     email: string;

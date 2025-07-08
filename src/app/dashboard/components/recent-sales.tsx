@@ -1,6 +1,7 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import useGetTopUser from '@/feature/dashboard/useGetTopUser'
 
 const topUsers = [
   {
@@ -46,21 +47,22 @@ const topUsers = [
 ]
 
 export function RecentSales() {
+  const { data } = useGetTopUser()
   return (
     <div className="space-y-8">
-      {topUsers.map((user, index) => (
+      {data?.user?.map((user, index) => (
         <div key={index} className="flex items-center">
           <Avatar className="h-9 w-9">
-            <AvatarImage src={user.avatar} alt={user.name} />
-            <AvatarFallback>{user.fallback}</AvatarFallback>
+            <AvatarImage alt={user.name} />
+            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-sm text-muted-foreground">
-              {user.division} — {user.telephone}
+              {user.division.title} — {user.telephone}
             </p>
           </div>
-          <div className="ml-auto font-medium">{user.amount}</div>
+          <div className="ml-auto font-medium">{user._count.itemOut}</div>
         </div>
       ))}
     </div>

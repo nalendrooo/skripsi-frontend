@@ -12,6 +12,7 @@ export const API_ENDPOINTS = {
   itemRestock: `${BASE_URL}/item-restock`,
   itemOut: `${BASE_URL}/item-out`,
   operator: `${BASE_URL}/operator`,
+  dashboard: `${BASE_URL}/dashboard`,
   login: `${ENV_BACKEND_URL}/api/operator`,
   downloadExcel: `${ENV_BACKEND_URL}/api/download-excel`,
 };

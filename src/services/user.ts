@@ -23,6 +23,16 @@ const userService = {
         axiosWithBearer
             .put(API_ENDPOINTS.user + `/${id}`, body)
             .then((res) => res.data),
+    updateStatus: ({
+        body,
+        id
+    }: {
+        body: { isActive: boolean }
+        id: number
+    }) =>
+        axiosWithBearer
+            .patch(API_ENDPOINTS.user + `/${id}/status` , body)
+            .then((res) => res.data),
     login: ({
         body
     }: {
@@ -49,7 +59,7 @@ const userService = {
             .then((res) => res.data.data),
     getTop: () =>
         axiosWithBearer
-            .get<IResTopUserModel>(API_ENDPOINTS.user + '/top', )
+            .get<IResTopUserModel>(API_ENDPOINTS.user + '/top',)
             .then((res) => res.data.data),
 
 };

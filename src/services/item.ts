@@ -22,6 +22,15 @@ const itemService = {
         axiosWithBearer
             .put(API_ENDPOINTS.item + `/${id}`, body)
             .then((res) => res.data),
+    updateStatus: ({
+        body,
+        id
+    }: {
+        body: { isActive: boolean }
+        id: number
+    }) =>
+        axiosWithBearer
+            .patch(API_ENDPOINTS.item + `/${id}/status`, body),
     get: (params?: Record<string, any>) =>
         axiosWithBearer
             .get<IResItemModel>(API_ENDPOINTS.item, {

@@ -7,9 +7,14 @@ import useGetItem from '@/feature/item/hooks/useGetItem'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
 import DialogUpdateItem from '../Dialog/DialogUpdateItem'
 import { TableToolbar } from '@/feature/item/component/Toolbar/TableToolbar'
+import useUpdateItemStatus from '@/feature/item/hooks/useUpdateItemStatus'
 
 const DataTable = () => {
   const { data } = useGetItem()
+   const { mutateAsync } = useUpdateItemStatus()
+  const handleUpdateStatus = async (itemId: number, isActive: boolean) => {
+    await mutateAsync({ itemId, isActive })
+  }
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
@@ -52,11 +57,18 @@ const DataTable = () => {
                   <TableCell>{item.description || '-'}</TableCell>
                   <TableCell>{item.unit}</TableCell>
                   <TableCell>{item.category}</TableCell>
-                  <TableCell><Switch checked={item.isActive} /></TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={item.isActive}
+                      onCheckedChange={(val) => {
+                        handleUpdateStatus(item.id, val)
+                      }}
+                    />
+                  </TableCell>
                   <TableCell>{formatIndonesianDateTime(item.createdAt)}</TableCell>
                   <TableCell>{formatIndonesianDateTime(item.updatedAt)}</TableCell>
                   <TableCell>
-                    <DialogUpdateItem item={item}/>
+                    <DialogUpdateItem item={item} />
                   </TableCell>
                 </TableRow>
               ))}

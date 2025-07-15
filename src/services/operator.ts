@@ -21,6 +21,15 @@ const operatorService = {
         axiosWithBearer
             .put(API_ENDPOINTS.operator + `/${id}`, body)
             .then((res) => res.data),
+    updateStatus: ({
+        body,
+        id
+    }: {
+        body: { isActive: boolean }
+        id: number
+    }) =>
+        axiosWithBearer
+            .patch(API_ENDPOINTS.operator + `/${id}/status`, body),
     get: (params?: Record<string, any>) =>
         axiosWithBearer
             .get<IResOperatorModel>(API_ENDPOINTS.operator, {

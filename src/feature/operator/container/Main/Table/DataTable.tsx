@@ -8,10 +8,14 @@ import useGetItem from '@/feature/item/hooks/useGetItem'
 import useGetOperator from '@/feature/operator/hooks/useGetOperator'
 import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
 import DialogUpdateOperator from '../Dialog/DialogUpdateOperator'
+import useUpdateOperatorStatus from '@/feature/operator/hooks/useUpdateOperatorStatus'
 
 const DataTable = () => {
   const { data } = useGetOperator()
-  
+  const { mutateAsync } = useUpdateOperatorStatus()
+  const handleUpdateStatus = async (operatorId: number, isActive: boolean) => {
+    await mutateAsync({ operatorId, isActive })
+  }
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
@@ -45,7 +49,14 @@ const DataTable = () => {
                   <TableCell>{user.telephone}</TableCell>
                   <TableCell>{user.adminRole}</TableCell>
                   <TableCell>{user.division?.title || '-'}</TableCell>
-                  <TableCell><Switch checked={user.isActive} /></TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={user.isActive}
+                      onCheckedChange={(val) => {
+                        handleUpdateStatus(user.id, val)
+                      }}
+                    />
+                  </TableCell>
                   <TableCell>{formatIndonesianDateTime(user.createdAt)}</TableCell>
                   <TableCell>{formatIndonesianDateTime(user.updatedAt)}</TableCell>
                   <TableCell>

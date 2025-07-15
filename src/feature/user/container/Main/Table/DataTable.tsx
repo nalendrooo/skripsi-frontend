@@ -13,9 +13,15 @@ import { formatIndonesianDateTime } from '@/lib/date-formatter'
 import React from 'react'
 import DialogUpdateUser from '../Dialog/DialogUpdateUser'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
+import useUpdateUserStatus from '@/feature/user/hooks/useUpdateUserStatus'
 
 const DataTable = () => {
   const { data } = useGetUser()
+  const { mutateAsync } = useUpdateUserStatus()
+
+  const handleUpdateStatus = async (userId: number, isActive: boolean) => {
+    await mutateAsync({ userId, isActive })
+  }
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
@@ -46,7 +52,14 @@ const DataTable = () => {
                   <TableCell>{item.code || '-'}</TableCell>
                   <TableCell>{item.divisionTitle}</TableCell>
                   <TableCell>{item.telephone}</TableCell>
-                  <TableCell><Switch checked={item.isActive} /></TableCell>
+                  <TableCell>
+                    <Switch
+                      checked={item.isActive}
+                      onCheckedChange={(val) => {
+                        handleUpdateStatus(item.id, val)
+                      }}
+                    />
+                  </TableCell>
                   <TableCell className="text-center">{item._count}</TableCell>
                   <TableCell className="text-center">
                     <DialogUpdateUser item={item} />

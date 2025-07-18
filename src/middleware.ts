@@ -8,10 +8,10 @@ export async function middleware(request: NextRequest) {
 
     const isPublic = PUBLIC_PATHS.includes(pathname)
 
-    // ⛔️ Jika user sudah login dan mengakses halaman login (/), redirect ke dashboard
-    if (pathname === '/' && token) {
-        return NextResponse.redirect(new URL('/dashboard', request.url))
-    }
+    // // ⛔️ Jika user sudah login dan mengakses halaman login (/), redirect ke dashboard
+    // if (pathname === '/' && token) {
+    //     return NextResponse.redirect(new URL('/dashboard', request.url))
+    // }
 
     // ✅ Jika halaman publik (seperti /) dan user belum login, izinkan
     if (isPublic) {

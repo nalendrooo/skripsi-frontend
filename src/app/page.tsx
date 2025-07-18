@@ -9,6 +9,8 @@ import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import useLogin from '@/feature/auth/hooks/useLogin'
 import Image from 'next/image'
+import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
 
 // Yup schema
 const schema = yup.object({
@@ -22,6 +24,9 @@ const schema = yup.object({
 type FormData = yup.InferType<typeof schema>
 
 export default function AuthenticationPage() {
+
+  const [showPassword, setShowPassword] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -101,16 +106,25 @@ export default function AuthenticationPage() {
               )}
             </div>
 
-            <div>
+            <div className="relative">
               <label htmlFor="password" className="block text-sm font-medium">
                 Password
               </label>
               <Input
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="********"
                 {...register('password')}
+                className="pr-10"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-4 top-[50%] text-sm text-muted-foreground focus:outline-none"
+                tabIndex={-1}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
               )}

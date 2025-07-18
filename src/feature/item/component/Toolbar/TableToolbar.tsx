@@ -33,7 +33,7 @@ export function TableToolbar() {
     return (
         <div className='flex items-center justify-between'>
             <div className='flex items-center gap-x-2 '>
-                <Input
+                {/* <Input
                     placeholder='Cari nama barang ...'
                     //   value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
                     //   onChange={(event) =>
@@ -41,7 +41,7 @@ export function TableToolbar() {
                     //   }
                     icon={<Search className="w-4 h-4" />}
                     className='h-8 w-[150px] lg:w-[250px]'
-                />
+                /> */}
                 {/* <div className='flex gap-x-2'>
           {table.getColumn('status') && (
             <DataTableFacetedFilter

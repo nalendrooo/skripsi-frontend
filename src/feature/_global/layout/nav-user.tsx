@@ -27,6 +27,9 @@ import {
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import useLogout from '@/feature/auth/hooks/useLogout'
+import { useTheme } from 'next-themes'
+import { Moon, Sun, Laptop } from 'lucide-react'
+
 
 export function NavUser({
   user,
@@ -37,6 +40,8 @@ export function NavUser({
     avatar?: string
   }
 }) {
+  const { theme, resolvedTheme, setTheme } = useTheme()
+
   const { isMobile } = useSidebar()
   const { mutateAsync: logout } = useLogout()
 
@@ -84,13 +89,25 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            {/* <DropdownMenuSeparator /> */}
-            {/* <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={() => setTheme('light')}>
+                <Sun className="mr-2 h-4 w-4" />
+                Light
+                {resolvedTheme === 'light' && <span className="ml-auto text-xs">✓</span>}
               </DropdownMenuItem>
-            </DropdownMenuGroup> */}
+              <DropdownMenuItem onClick={() => setTheme('dark')}>
+                <Moon className="mr-2 h-4 w-4" />
+                Dark
+                {resolvedTheme === 'dark' && <span className="ml-auto text-xs">✓</span>}
+              </DropdownMenuItem>
+              {/* <DropdownMenuItem onClick={() => setTheme('system')}>
+    <Laptop className="mr-2 h-4 w-4" />
+    System
+    {theme === 'system' && <span className="ml-auto text-xs">✓</span>}
+  </DropdownMenuItem> */}
+            </DropdownMenuGroup>
+
             {/* <DropdownMenuSeparator /> */}
             {/* <DropdownMenuGroup>
               <DropdownMenuItem asChild>

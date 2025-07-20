@@ -11,13 +11,15 @@ import DialogCreateItemOut from '../Dialog/DialogCreateItemOut'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
 import DialogDeleteItemOut from '../Dialog/DialogDeleteItemOut'
 import { TableToolbar } from '@/feature/item-out/component/Toolbar/TableToolbar'
+import useProfile from '@/feature/_global/hooks/useProfile'
 
 const DataTable = () => {
+  const profile = useProfile()
   const { data } = useGetItemOut()
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
-      <DialogCreateItemOut />
+      {profile?.role !== 'INSPECTOR' && <DialogCreateItemOut />}
       <TableToolbar />
       <div className='rounded-md border'>
         {data?.data.length === 0 ? (
@@ -28,7 +30,6 @@ const DataTable = () => {
             <TableHeader>
               <TableRow>
                 <TableHead>No</TableHead>
-                {/* <TableHead>Kode barang keluar</TableHead> */}
                 <TableHead>Pengambil</TableHead>
                 <TableHead>Divisi</TableHead>
                 <TableHead>Telephone</TableHead>
@@ -39,13 +40,12 @@ const DataTable = () => {
                 <TableHead>Berita Acara</TableHead>
                 <TableHead>Petugas</TableHead>
                 <TableHead>Dibuat</TableHead>
-                <TableHead>Aksi</TableHead>
+                {profile?.role !== 'INSPECTOR' && <TableHead>Aksi</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
               {data?.data.map((item, index) => (
                 <TableRow key={index}>
-                  {/* <TableCell>{index + 1}</TableCell> */}
                   <TableCell>{item.code}</TableCell>
                   <TableCell>{item.user.name}</TableCell>
                   <TableCell>{item.user.division}</TableCell>
@@ -69,7 +69,8 @@ const DataTable = () => {
                   </TableCell>
                   <TableCell>{item.operator}</TableCell>
                   <TableCell>{formatIndonesianDateTime(item.createdAt)}</TableCell>
-                  <TableCell><DialogDeleteItemOut item={item} /></TableCell>
+                  {profile?.role !== 'INSPECTOR' && <TableCell><DialogDeleteItemOut item={item} /></TableCell>}
+
                 </TableRow>
               ))}
             </TableBody>

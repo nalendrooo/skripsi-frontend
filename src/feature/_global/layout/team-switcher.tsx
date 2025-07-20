@@ -18,6 +18,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import Image from 'next/image'
+import useProfile from '../hooks/useProfile'
 
 export function TeamSwitcher({
   teams,
@@ -29,6 +30,7 @@ export function TeamSwitcher({
   }[]
 }) {
   const { isMobile } = useSidebar()
+  const profile = useProfile()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
 
   const now = new Date();
@@ -42,6 +44,11 @@ export function TeamSwitcher({
     // second: "2-digit",
   });
 
+  const ROLE = {
+    SUPERADMIN: 'Kepala Sub Umum',
+    OPERATOR: 'Petugas Gudang',
+    INSPECTOR: 'Inspektorat',
+  }
 
   return (
     <SidebarMenu>
@@ -54,13 +61,14 @@ export function TeamSwitcher({
             >
               <div className='flex aspect-square size-8 items-center justify-center rounded-lg  text-sidebar-primary-foreground'>
                 {/* <activeTeam.logo className='size-4' /> */}
-                 <Image src='/LOGO_KEMENTERIAN_PERHUBUNGAN_REPUBLIK_INDONESIA.png' alt='Logo Kementerian Perhubungan Republik Indonesia' width={50} height={50} className="relative z-20 " />
+                <Image src='/LOGO_KEMENTERIAN_PERHUBUNGAN_REPUBLIK_INDONESIA.png' alt='Logo Kementerian Perhubungan Republik Indonesia' width={50} height={50} className="relative z-20 " />
               </div>
               <div className='grid flex-1 gap-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>
                   Dishub Banyumas
                 </span>
-                <span className='truncate text-xs'>{formatted}</span>
+                {/* <span className='truncate text-xs'>{formatted}</span> */}
+                <span className='truncate text-xs'>{ROLE[profile?.role as keyof typeof ROLE]}</span>
               </div>
               <ChevronsUpDown className='ml-auto' />
             </SidebarMenuButton>

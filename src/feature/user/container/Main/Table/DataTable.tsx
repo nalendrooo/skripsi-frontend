@@ -14,6 +14,7 @@ import React from 'react'
 import DialogUpdateUser from '../Dialog/DialogUpdateUser'
 import EmptyState from '@/feature/_global/component/Emty/Empty'
 import useUpdateUserStatus from '@/feature/user/hooks/useUpdateUserStatus'
+import useProfile from '@/feature/_global/hooks/useProfile'
 
 const DataTable = () => {
   const { data } = useGetUser()
@@ -22,6 +23,8 @@ const DataTable = () => {
   const handleUpdateStatus = async (userId: number, isActive: boolean) => {
     await mutateAsync({ userId, isActive })
   }
+
+  const profile = useProfile()
   return (
     <div className='space-y-4'>
       {/* <DataTableToolbar table={table} /> */}
@@ -39,9 +42,10 @@ const DataTable = () => {
                 <TableHead>Code</TableHead>
                 <TableHead>Division</TableHead>
                 <TableHead>Telephone</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Total Pengambilan</TableHead>
-                <TableHead className="text-center">Aksi</TableHead>
+                {profile?.role !== 'INSPECTOR' && <TableHead>Status</TableHead>}
+                <TableHead className='text-center'>Total Pengambilan</TableHead>
+                {profile?.role !== 'INSPECTOR' && <TableHead className="text-center">Aksi</TableHead>}
+
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -52,18 +56,19 @@ const DataTable = () => {
                   <TableCell>{item.code || '-'}</TableCell>
                   <TableCell>{item.divisionTitle}</TableCell>
                   <TableCell>{item.telephone}</TableCell>
-                  <TableCell>
+                  {profile?.role !== 'INSPECTOR' && <TableCell>
                     <Switch
                       checked={item.isActive}
                       onCheckedChange={(val) => {
                         handleUpdateStatus(item.id, val)
                       }}
                     />
-                  </TableCell>
+                  </TableCell>}
                   <TableCell className="text-center">{item._count}</TableCell>
-                  <TableCell className="text-center">
+                  {profile?.role !== 'INSPECTOR' && <TableCell className="text-center">
                     <DialogUpdateUser item={item} />
-                  </TableCell>
+                  </TableCell>}
+
                 </TableRow>
               ))}
             </TableBody>

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { API_ENDPOINTS } from '@/core/app';
+import useProfile from '@/feature/_global/hooks/useProfile';
 import { Cross, Search, Sheet, X } from 'lucide-react'
 import { useState } from 'react';
 // import { DataTableViewOptions } from '../components/data-table-view-options'
@@ -14,6 +15,7 @@ import { useState } from 'react';
 // }
 
 export function TableToolbar() {
+  const profile = useProfile()
   const [isLoading, setIsLoading] = useState(false)
 
     const handleDownloadExcel = async () => {
@@ -31,9 +33,9 @@ export function TableToolbar() {
     };
 
     return (
-        <div className='flex items-center justify-end'>
+        <div className={`flex items-center ${profile?.role === 'INSPECTOR' ? 'justify-start' : 'justify-end'}`}>
             {/* <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'> */}
-            <div className='flex flex-end items-center gap-x-2 '>
+            <div className={`flex  items-center gap-x-2 `}>
                 {/* <Input
                     placeholder='Cari nama barang ...'
                     //   value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}

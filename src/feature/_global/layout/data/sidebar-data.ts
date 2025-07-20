@@ -229,3 +229,188 @@ export const sidebarData: any = {
     // },
   ],
 }
+
+export const MENU = {
+  SUPERADMIN: [
+
+    {
+      title: 'Dashboard',
+      items: [
+        {
+          title: 'Dashboard',
+          url: '/dashboard',
+          icon: 'IconGauge',
+        }
+      ]
+    },
+    {
+      title: 'User',
+      items: [
+        {
+          title: 'Pengambil',
+          url: '/user',
+          icon: 'IconUserRound',
+        }
+      ]
+    },
+    {
+      title: 'Barang',
+      items: [
+        {
+          title: 'Stok Barang',
+          url: '/item',
+          icon: 'IconPackages',
+        },
+        {
+          title: 'Barang Masuk',
+          url: '/item-restock',
+          icon: 'IconPackagesPlus',
+        },
+        {
+          title: 'Barang Keluar',
+          url: '/item-out',
+          icon: 'IconPackagesMinus',
+        },
+        {
+          title: 'Stok Opname',
+          url: '/item-balance',
+          icon: 'IconPackagesCheck',
+        },
+      ],
+
+    },
+    {
+      title: 'General',
+      items: [
+        {
+          title: 'Kategori Barang',
+          url: '/category',
+          icon: 'IconLayoutDashboard',
+        },
+
+        {
+          title: 'Satuan Barang',
+          url: '/unit',
+          icon: 'IconBoxes',
+        },
+      ],
+    },
+    {
+      title: 'Users',
+      items: [
+        {
+          title: 'Petugas',
+          url: '/operator',
+          icon: 'IconUserRoundCog',
+        },
+        {
+          title: 'Divisi',
+          url: '/division',
+          icon: 'IconAward',
+        },
+      ]
+    }
+
+  ],
+  OPERATOR: [
+
+    {
+      title: 'Dashboard',
+      items: [
+        {
+          title: 'Dashboard',
+          url: '/dashboard',
+          icon: 'IconGauge',
+        }
+      ]
+    },
+    {
+      title: 'User',
+      items: [
+        {
+          title: 'Pengambil',
+          url: '/user',
+          icon: 'IconUserRound',
+        }
+      ]
+    },
+    {
+      title: 'Barang',
+      items: [
+        {
+          title: 'Stok Barang',
+          url: '/item',
+          icon: 'IconPackages',
+        },
+        {
+          title: 'Barang Masuk',
+          url: '/item-restock',
+          icon: 'IconPackagesPlus',
+        },
+        {
+          title: 'Barang Keluar',
+          url: '/item-out',
+          icon: 'IconPackagesMinus',
+        },
+        {
+          title: 'Stok Opname',
+          url: '/item-balance',
+          icon: 'IconPackagesCheck',
+        },
+      ],
+
+    },
+
+
+  ],
+  INSPECTOR: [
+
+    {
+      title: 'Dashboard',
+      items: [
+        {
+          title: 'Dashboard',
+          url: '/dashboard',
+          icon: 'IconGauge',
+        }
+      ]
+    },
+    {
+      title: 'User',
+      items: [
+        {
+          title: 'Pengambil',
+          url: '/user',
+          icon: 'IconUserRound',
+        }
+      ]
+    },
+    {
+      title: 'Barang',
+      items: [
+        {
+          title: 'Stok Barang',
+          url: '/item',
+          icon: 'IconPackages',
+        },
+        {
+          title: 'Barang Masuk',
+          url: '/item-restock',
+          icon: 'IconPackagesPlus',
+        },
+        {
+          title: 'Barang Keluar',
+          url: '/item-out',
+          icon: 'IconPackagesMinus',
+        },
+        {
+          title: 'Stok Opname',
+          url: '/item-balance',
+          icon: 'IconPackagesCheck',
+        },
+      ],
+
+    },
+
+  ],
+}

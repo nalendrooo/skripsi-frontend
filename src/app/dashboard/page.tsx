@@ -62,6 +62,7 @@ const page = () => {
                             <CardTitle className='text-sm font-medium'>
                                 Barang Keluar
                             </CardTitle>
+                            <PackageMinus />
                             {/* <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 viewBox='0 0 24 24'
@@ -76,7 +77,6 @@ const page = () => {
                                 <circle cx='9' cy='7' r='4' />
                                 <path d='M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75' />
                             </svg> */}
-                            <PackagePlus />
                         </CardHeader>
                         <CardContent>
                             <div className='text-4xl font-bold'>{dashboard?.itemOut}<span className='ml-2 text-sm text-muted-foreground'>
@@ -92,6 +92,7 @@ const page = () => {
                             <CardTitle className='text-sm font-medium'>
                                 Barang Masuk
                             </CardTitle>
+                            <PackagePlus />
                             {/* <svg
                                 xmlns='http://www.w3.org/2000/svg'
                                 viewBox='0 0 24 24'
@@ -105,7 +106,6 @@ const page = () => {
                                 <rect width='20' height='14' x='2' y='5' rx='2' />
                                 <path d='M2 10h20' />
                             </svg> */}
-                            <PackageMinus />
                         </CardHeader>
                         <CardContent>
                             <div className='text-4xl font-bold'>{dashboard?.itemRestock}<span className='ml-2 text-sm text-muted-foreground'>

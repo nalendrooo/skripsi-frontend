@@ -7,7 +7,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { sidebarData } from './data/sidebar-data'
+import { MENU, sidebarData } from './data/sidebar-data'
 import { TeamSwitcher } from './team-switcher'
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
@@ -21,8 +21,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={sidebarData.teams} />
       </SidebarHeader>
       <SidebarContent>
-        {sidebarData.navGroups.map((props: any) => (
-          <NavGroup key={props.title} {...props} />
+        {(MENU[profile?.role as keyof typeof MENU] || []).map((menuGroup: any) => (
+          <NavGroup key={menuGroup.title} {...menuGroup} />
         ))}
       </SidebarContent>
       <SidebarFooter>

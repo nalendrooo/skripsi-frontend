@@ -8,10 +8,12 @@ import { formatIndonesianDateTime, formatRupiah } from '@/lib/date-formatter'
 import DialogUpdateItem from '../Dialog/DialogUpdateItem'
 import { TableToolbar } from '@/feature/item/component/Toolbar/TableToolbar'
 import useUpdateItemStatus from '@/feature/item/hooks/useUpdateItemStatus'
+import useProfile from '@/feature/_global/hooks/useProfile'
 
 const DataTable = () => {
   const { data } = useGetItem()
-   const { mutateAsync } = useUpdateItemStatus()
+  const { mutateAsync } = useUpdateItemStatus()
+  const profile = useProfile()
   const handleUpdateStatus = async (itemId: number, isActive: boolean) => {
     await mutateAsync({ itemId, isActive })
   }
@@ -37,10 +39,10 @@ const DataTable = () => {
                 <TableHead>Deskripsi</TableHead>
                 <TableHead>Satuan</TableHead>
                 <TableHead>Kategori</TableHead>
-                <TableHead>Status</TableHead>
+                {profile?.role !== 'INSPECTOR' && <TableHead>Status</TableHead>}
                 <TableHead>Dibuat</TableHead>
                 <TableHead>Terakhir diubah</TableHead>
-                <TableHead>Aksi</TableHead>
+                {profile?.role !== 'INSPECTOR' && <TableHead>Aksi</TableHead>}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -57,19 +59,21 @@ const DataTable = () => {
                   <TableCell>{item.description || '-'}</TableCell>
                   <TableCell>{item.unit}</TableCell>
                   <TableCell>{item.category}</TableCell>
-                  <TableCell>
+                  {profile?.role !== 'INSPECTOR' && <TableCell>
                     <Switch
                       checked={item.isActive}
                       onCheckedChange={(val) => {
                         handleUpdateStatus(item.id, val)
                       }}
                     />
-                  </TableCell>
+                  </TableCell>}
+
                   <TableCell>{formatIndonesianDateTime(item.createdAt)}</TableCell>
                   <TableCell>{formatIndonesianDateTime(item.updatedAt)}</TableCell>
-                  <TableCell>
+                  {profile?.role !== 'INSPECTOR' && <TableCell>
                     <DialogUpdateItem item={item} />
-                  </TableCell>
+                  </TableCell>}
+
                 </TableRow>
               ))}
             </TableBody>

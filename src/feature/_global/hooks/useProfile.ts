@@ -10,7 +10,7 @@ export interface IUserProfile {
   name: string
   iat: number
   id: number
-  role: 'SUPERADMIN' | 'OPERATOR'
+  role: 'SUPERADMIN' | 'OPERATOR' | 'INSPECTOR'
   telephone: string
 }
 

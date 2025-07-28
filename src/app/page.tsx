@@ -58,8 +58,8 @@ export default function AuthenticationPage() {
         Login
       </Link>
 
-      <div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-        <div className="absolute inset-0 bg-zinc-900" />
+      <div className="relative hidden h-full flex-col bg-muted p-10 text-zinc-900 dark:text-white lg:flex dark:border-r">
+        <div className="absolute inset-0 bg-white  dark:bg-zinc-900" />
         <div className="relative gap-4 z-20 flex items-center text-xl font-bold">
 
           <Image src='/LOGO_KEMENTERIAN_PERHUBUNGAN_REPUBLIK_INDONESIA.png' alt='Logo Kementerian Perhubungan Republik Indonesia' width={50} height={50} className="relative z-20 " />

@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Backend Erklika Pro
 on:
   push:
     branches:
-      - master  # Jalankan hanya saat ada perubahan di branch "main"
+      - dev  # Jalankan hanya saat ada perubahan di branch "main"
 
 jobs:
   build:

@@ -47,13 +47,11 @@ jobs:
           docker build \
             --build-arg NEXT_PUBLIC_ENV_BACKEND_URL=${{ env.NEXT_PUBLIC_ENV_BACKEND_URL }} \
             --build-arg ACCESS_TOKEN=${{ env.ACCESS_TOKEN }} \
-            -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:pr-${{ github.event.pull_request.number }} \
             -t ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest .
 
 
       - name: Push Docker images
         run: |
-          docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:pr-${{ github.event.pull_request.number }}
           docker push ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Deploy to Cloud Run

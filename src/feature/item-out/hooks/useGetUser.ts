@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 const useGetUser = () => {
     const query = useQuery({
         queryKey: ['get-user'],
-        queryFn: () => userService.get({ active: true }),
+        queryFn: () => userService.get({ active: true, perPage: 9999 }),
     });
 
     return query

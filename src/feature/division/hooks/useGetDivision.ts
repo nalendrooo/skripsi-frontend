@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 const useGetDivision = () => {
     const query = useQuery({
         queryKey: ['get-division'],
-        queryFn: () => divisionService.get(),
+        queryFn: () => divisionService.get({ perPage: 9999 }),
     });
 
     return query

@@ -360,6 +360,22 @@ export const MENU = {
       ],
 
     },
+     {
+      title: 'General',
+      items: [
+        {
+          title: 'Kategori Barang',
+          url: '/category',
+          icon: 'IconLayoutDashboard',
+        },
+
+        {
+          title: 'Satuan Barang',
+          url: '/unit',
+          icon: 'IconBoxes',
+        },
+      ],
+    },
 
 
   ],

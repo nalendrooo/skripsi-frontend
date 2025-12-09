@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 const useGetItemRestock = () => {
     const query = useQuery({
         queryKey: ['get-item-restock'],
-        queryFn: () => itemRestockService.get(),
+        queryFn: () => itemRestockService.get({ perPage: 9999 }),
     });
 
     return query

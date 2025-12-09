@@ -16,19 +16,51 @@ import { useState } from 'react';
 export function TableToolbar() {
   const [isLoading, setIsLoading] = useState(false)
 
-    const handleDownloadExcel = async () => {
-        setIsLoading(true)
-        const newWindow = window.open(API_ENDPOINTS.downloadExcel + '/item-restock', '_blank');
+    // const handleDownloadExcel = async () => {
+    //     setIsLoading(true)
+    //     const newWindow = window.open(API_ENDPOINTS.downloadExcel + '/item-restock', '_blank');
 
-        if (newWindow) {
-            setTimeout(() => {
-                newWindow.close();
-            }, 100);
+    //     if (newWindow) {
+    //         setTimeout(() => {
+    //             newWindow.close();
+    //         }, 100);
 
-            setIsLoading(false)
-        }
-        setIsLoading(false)
-    };
+    //         setIsLoading(false)
+    //     }
+    //     setIsLoading(false)
+    // };
+
+    const handleDownloadExcel = () => {
+    // 1. Set isLoading menjadi TRUE segera sebelum download dimulai
+    setIsLoading(true); // Gantikan button download dengan spinner/disable
+
+    // 2. Buat elemen link <a>
+    const link = document.createElement('a');
+    
+    // Tentukan URL endpoint download
+    link.href = API_ENDPOINTS.downloadExcel + '/item-restock';
+    
+    // Atur atribut download
+    link.setAttribute('download', 'List-Barang.xlsx'); 
+    
+    // Tambahkan link ke body
+    document.body.appendChild(link);
+    
+    // Pemicu klik (memulai proses download)
+    link.click();
+    
+    // Bersihkan elemen link
+    document.body.removeChild(link);
+
+    // 3. Set isLoading menjadi FALSE setelah jeda waktu
+    // Pilih jeda waktu (misalnya 3 hingga 5 detik) agar pengguna melihat indikator loading
+    // selama file sedang dibuat oleh backend dan dikirim ke browser.
+    const DOWNLOAD_TIMEOUT = 3000; // 3 detik
+
+    setTimeout(() => {
+        setIsLoading(false); 
+    }, DOWNLOAD_TIMEOUT);
+};
 
     return (
         <div className='flex items-center justify-between'>
